@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 
 import os
-import PartyBot.bot
+import Bot.bot
 
 from django.core.wsgi import get_wsgi_application
 
