@@ -1,30 +1,24 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 
-def signin(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            # Redirect to a success page.
-        else:
-            pass
-            # Return a 'disabled account' error message
-    else:
-        # Return an 'invalid login' error message.
-        pass
-
-
-def signout(request):
-    logout(request)
-    # Redirect to a success page.
+@login_required
+def week(request):
+    return render(request, 'week.html')
 
 
 def signup(request):
-    user = User.objects.create_user()
-    user.save()
-    # Redirect to a success page.
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('week')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
