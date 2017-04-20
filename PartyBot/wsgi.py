@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 
 import os
-import Bot.bot
+import Bot.bot # bot's initialization
 
 from django.core.wsgi import get_wsgi_application
 
