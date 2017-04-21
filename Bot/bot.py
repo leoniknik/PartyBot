@@ -49,7 +49,7 @@ week_day_dict = {
     5: 'Сб',
     6: 'Вс'
 }
-week_day_rev_dict = {
+week_day_reverse_dict = {
     'Пон': 0,
     'Вт': 1,
     'Ср': 2,
@@ -61,13 +61,13 @@ week_day_rev_dict = {
 
 
 def echo(bot, update):
-    debug_print('text')
-    debug_print(update.message.text)
-    Action.add_Action(update.message)
-    text = update.message.text
     try:
+        debug_print('text')
+        debug_print(update.message.text)
+        Action.add_Action(update.message)
+        text = update.message.text
         debug_print(text)
-        week_day_id = WeekDay(week_day_rev_dict[text])
+        week_day_id = WeekDay(week_day_reverse_dict[text])
         week_day = WeekDay(week_day_id)
         debug_print(week_day)
         events = Day.get_day_and_events(week_day)
@@ -80,7 +80,7 @@ def echo(bot, update):
             message = ''
             message += '*' + event.header + '*' + '\n'
             message += event.description + '\n'
-            rating = event.get_rating()
+            rating = event.rating
             message += '*' + 'Рейтинг:' + str(rating) + '*'
             bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN)
 
@@ -96,22 +96,18 @@ def error(bot, update, error):
 
 
 def command(bot, update):
-    print('command')
-    print(update.message.text)
-    Action.add_Action(update.message)
-
     try:
+        print('command')
+        print(update.message.text)
+        Action.add_Action(update.message)
         func = command_dict[update.message.text]
         func(bot, update)
     except KeyError as k_e:
         print(k_e)
-        bot.sendMessage(chat_id=update.message.chat_id, text="Sorry, I didn't understand that command.")
+        bot.sendMessage(chat_id=update.message.chat_id, text="Sorry, I didn't understand that command")
     except Exception as ex:
         print(ex)
-        bot.sendMessage(chat_id=update.message.chat_id, text="System error.")
-
-
-        # bot.sendMessage(chat_id=update.message.chat_id, text="Sorry, I didn't understand that command.")
+        bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
 
 command_handler = MessageHandler(Filters.command, command)
