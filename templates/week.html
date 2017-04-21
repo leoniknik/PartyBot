@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static "js/week.js" %}" type="text/javascript"></script>
+{% endblock %}
+
 
 {% block content %}
-  <h2>Welcome, {{ user.username }}!</h2>
+    <h2>Welcome, {{ user.username }}!</h2>
+    <ul class="nav nav-pills nav-justified" id="myTab">
+        <li><a href="#" id="test">Понедельник</a></li>
+        <li><a href="#">Вторник</a></li>
+        <li><a href="#">Среда</a></li>
+        <li><a href="#">Четверг</a></li>
+        <li><a href="#">Пятница</a></li>
+        <li><a href="#">Суббота</a></li>
+        <li><a href="#">Воскресенье</a></li>
+    </ul>
+    <button id="test">try</button>
 {% endblock %}

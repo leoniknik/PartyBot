@@ -5,6 +5,9 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMa
 
 updater = Updater(token='358413947:AAFRr2HUr7lc3rXPKp9XlrnFQ17r9aLG3b8')
 dispatcher = updater.dispatcher
+
+# TODO: for Kirill decorator
+
 debug = False
 
 
@@ -20,9 +23,9 @@ def start_command(bot, update):
         TelegramUser.add_telegram_user(update.message.chat)
         debug_print('make keyboard')
         keyboard = [
-                        ['Пон', '..'],
-                        ['Вт', '..'],
-                        ['..']
+            ['Пон', '..'],
+            ['Вт', '..'],
+            ['..']
         ]
         markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=False)
         update.message.reply_text('Привет:', reply_markup=markup)
@@ -74,7 +77,7 @@ def echo(bot, update):
         debug_print(events)
         debug_print(events.count())
         if events.count() == 0:
-            message = 'На ' + week_day_dict[week_day.value] + ' мероприятий не запланировано'
+            message = 'На ' + week_day_dict[int(week_day.value)] + ' мероприятий не запланировано'
             bot.sendMessage(chat_id=update.message.chat_id, text=message)
         for event in events:
             message = ''
