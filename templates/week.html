@@ -1,11 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block extrahead %}
-
-{% endblock %}
-
-
 {% block content %}
     <h2>Welcome, {{ user.username }}!</h2>
     <ul class="nav nav-pills nav-justified" id="myTab">
@@ -17,5 +12,5 @@
         <li><a href="#">Суббота</a></li>
         <li><a href="#">Воскресенье</a></li>
     </ul>
-    <button id="test">try</button>
+    <script src="{% static "js/week.js" %}"></script>
 {% endblock %}
