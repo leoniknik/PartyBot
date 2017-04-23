@@ -20,7 +20,8 @@ from Bot import views as bot_views
 
 urlpatterns = [
     url(r'^$', bot_views.week, name='week'),
-    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    url(r'^day/(?P<num>[0-9]+)$', bot_views.day, name='day'),
+    url(r'^login/$', auth_views.login, {'template_name': 'login.html'},  name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^signup/$', bot_views.signup, name='signup'),

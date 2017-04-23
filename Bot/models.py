@@ -12,8 +12,7 @@ class Day(models.Model):
 
     @staticmethod
     def get_day_and_events(week_day):
-        week_day_code = week_day.value
-        day = Day.objects.get(actual=True, week_day_id=week_day_code)
+        day = Day.objects.get(actual=True, week_day_id=week_day)
         return day.get_events()
 
     def get_events(self):
