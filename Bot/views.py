@@ -1,6 +1,6 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import *
 
@@ -28,10 +28,20 @@ def week(request):
 @login_required
 def day(request, num):
     actives = Day.get_day_and_events(num)
-    return render(request, 'day.html', {'actives': actives})
+    return render(request, 'day.html', {'actives': actives, 'num': num})
 
 
 @login_required
-def add_event(request):
-    if request.GET:
+def add_event(request, num):
+    if request.method == 'GET':
         return render(request, 'add_event.html')
+    elif request.method == 'POST':
+        header = request.POST['header']
+        description = request.POST['description']
+        is_free = request.POST['is_free']
+        if is_free == "true":
+            is_free = True
+        elif is_free == "false":
+            is_free = False
+        Event.add_event(header=header, description=description, is_free=is_free, num=num)
+        return redirect('day', num=num)

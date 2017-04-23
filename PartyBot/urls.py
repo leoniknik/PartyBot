@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^signup/$', bot_views.signup, name='signup'),
-    url(r'^add_event/$', bot_views.add_event, name='add_event'),
+    url(r'^add_event/(?P<num>[0-9]+)$', bot_views.add_event, name='add_event'),
 ]

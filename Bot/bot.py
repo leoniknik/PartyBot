@@ -67,13 +67,13 @@ def echo(bot, update):
     try:
         debug_print('text')
         debug_print(update.message.text)
-        Action.add_Action(update.message)
+        Action.add_action(update.message)
         text = update.message.text
         debug_print(text)
         week_day_id = WeekDay(week_day_reverse_dict[text])
         week_day = WeekDay(week_day_id)
         debug_print(week_day)
-        events = Day.get_day_and_events(week_day)
+        events = Day.get_day_and_events(week_day.value)
         debug_print(events)
         debug_print(events.count())
         if events.count() == 0:

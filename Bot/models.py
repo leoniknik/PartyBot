@@ -18,6 +18,10 @@ class Day(models.Model):
     def get_events(self):
         return Event.objects.filter(day_id=self.id)
 
+    @staticmethod
+    def get_actual_day(week_day):
+        return Day.objects.get(actual=True, week_day_id=week_day)
+
 
 class TelegramUser(models.Model):
     username = models.TextField(verbose_name='username', default="")
@@ -64,10 +68,23 @@ class Event(models.Model):
     rating = models.IntegerField(verbose_name='rating', default=0)
     day = models.ForeignKey(Day, null=True)
 
-    # def get_rating(self):
-    #    plus = Vote.objects.filter(event_id=self.id, type=True).count()
-    #    minus = Vote.objects.filter(event_id=self.id, type=False).count()
-    #    return (plus - minus)
+    @staticmethod
+    def add_event(header, description, is_free, num):
+        try:
+            event = Event()
+            event.header = header
+            event.description = description
+            event.is_free = is_free
+            event.rating = 0
+            event.day = Day.get_actual_day(num)
+            event.save()
+        except Exception as e:
+            print(e)
+
+        # def get_rating(self):
+        #    plus = Vote.objects.filter(event_id=self.id, type=True).count()
+        #    minus = Vote.objects.filter(event_id=self.id, type=False).count()
+        #    return (plus - minus)
 
 
 class Vote(models.Model):
