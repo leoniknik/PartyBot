@@ -102,7 +102,7 @@ def command(bot, update):
     try:
         print('command')
         print(update.message.text)
-        Action.add_Action(update.message)
+        Action.add_action(update.message)
         func = command_dict[update.message.text]
         func(bot, update)
     except KeyError as k_e:

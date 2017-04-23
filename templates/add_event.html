@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+<form action="" method="post">{% csrf_token %}
+    <div>
+        <label for="header">Заголовок: </label>
+        <input id="header" type="text" name="header">
+    </div>
+        <label for="description">Описание: </label>
+        <input id="description" type="text" name="description">
+    </div>
+    <div>
+        <label for="is_free">Бесплатно: </label>
+        <p><input name="is_free" type="radio" value="yes">Да</p>
+        <p><input name="is_free" type="radio" value="no">Нет</p>
+    </div>
+    <div>
+        <input type="submit" value="Создать">
+    </div>
+</form>

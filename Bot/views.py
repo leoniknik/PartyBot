@@ -29,3 +29,9 @@ def week(request):
 def day(request, num):
     actives = Day.get_day_and_events(num)
     return render(request, 'day.html', {'actives': actives})
+
+
+@login_required
+def add_event(request):
+    if request.GET:
+        return render(request, 'add_event.html')

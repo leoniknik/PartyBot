@@ -26,11 +26,11 @@
                         <td>{{ active.rating }}</td>
                         <td>
                             <button type="button" class="btn btn-default btn-lg">
-                                <span class="glyphicon glyphicon-remove"></span></button>
+                                <span class="glyphicon glyphicon-pencil"></span></button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-default btn-lg">
-                                <span class="glyphicon glyphicon-pencil"></span></button>
+                                <span class="glyphicon glyphicon-remove"></span></button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -38,4 +38,5 @@
             </tbody>
         </table>
     </div>
+    <div class="text-center"><a href="{% url 'add_event' %}" class="btn btn-success">Добавить</a></div>
 {% endblock %}
