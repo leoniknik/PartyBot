@@ -4,11 +4,14 @@
         <div>
             <label for="header">Заголовок: </label>
         </div>
-        <input id="header" type="text" name="header">
+        <div>
+            <input id="header" type="text" name="header">
+        </div>
         <div>
             <label for="description">Описание: </label>
         </div>
-        <textarea id="description" rows="20" cols="70" name="description" form="add_form"></textarea>
+        <div>
+            <textarea id="description" rows="20" cols="70" name="description" form="add_form"></textarea>
         </div>
         <div>
             <label>Бесплатно: </label>
@@ -16,7 +19,7 @@
             <p><input name="is_free" type="radio" value="false">Нет</p>
         </div>
         <div>
-            <input type="submit" value="Создать">
+            <input type="submit" value="ОК">
         </div>
     </form>
 {% endblock %}

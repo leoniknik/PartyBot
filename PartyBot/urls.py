@@ -26,4 +26,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^signup/$', bot_views.signup, name='signup'),
     url(r'^add_event/(?P<num>[0-9]+)$', bot_views.add_event, name='add_event'),
+    url(r'^edit_event/(?P<id>[0-9]+)/(?P<num>[0-9]+)$', bot_views.edit_event, name='edit_event'),
+    url(r'^delete_event/(?P<id>[0-9]+)/(?P<num>[0-9]+)$', bot_views.delete_event, name='delete_event'),
+    url(r'^list_user/$', bot_views.list_user, name='list_user'),
+    url(r'^list_action/$', bot_views.list_action, name='list_action'),
 ]
