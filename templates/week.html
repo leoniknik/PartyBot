@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
-  <h2>Welcome, {{ user.username }}!</h2>
+    <h2>Welcome, {{ user.username }}</h2>
+    <p><a href="{% url 'list_user'%}">Посмотреть список пользователей</a></p>
+    <p><a href="{% url 'list_action'%}">Посмотреть список действий пользователей</a></p>
+    <ul class="nav nav-pills nav-justified" id="myTab">
+        <li><a href="{% url 'day' num=0 %}">Понедельник</a></li>
+        <li><a href="{% url 'day' num=1 %}">Вторник</a></li>
+        <li><a href="{% url 'day' num=2 %}">Среда</a></li>
+        <li><a href="{% url 'day' num=3 %}">Четверг</a></li>
+        <li><a href="{% url 'day' num=4 %}">Пятница</a></li>
+        <li><a href="{% url 'day' num=5 %}">Суббота</a></li>
+        <li><a href="{% url 'day' num=6 %}">Воскресенье</a></li>
+    </ul>
+    {% block day %}
+    {% endblock %}
+    <script src="{% static "js/week.js" %}"></script>
 {% endblock %}

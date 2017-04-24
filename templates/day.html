@@ -1,0 +1,42 @@
+{% extends 'week.html' %}
+{% block day %}
+    <div class="container table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Заголовок</th>
+                <th>Бесплатно</th>
+                <th>Рейтинг</th>
+                <th>Изменить</th>
+                <th>Удалить</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for active in actives %}
+                    <tr>
+                        <td>{{ active.header }}</td>
+                        <td>
+                            {% if active.is_free %}
+                                Да
+                            {% else %}
+                                Нет
+                            {% endif %}
+                        </td>
+                        <td>{{ active.rating }}</td>
+                        <td>
+                           <a href="{% url 'edit_event' id=active.id num=num %}" class="btn btn-default btn-lg">
+                                <span class="glyphicon glyphicon-pencil"></span></a>
+                        </td>
+                        <td>
+                            <a href="{% url 'delete_event' id=active.id num=num %}" class="btn btn-default btn-lg">
+                                <span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center"><a href="{% url 'add_event' num=num %}" class="btn btn-success">Добавить</a></div>
+{% endblock %}
