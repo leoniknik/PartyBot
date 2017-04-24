@@ -2,7 +2,8 @@ from django.db import models
 from datetime import date
 from django.utils import timezone
 from enum import Enum
-
+from django.db.models import Max
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, ParseMode
 
 class Day(models.Model):
     name = models.CharField(verbose_name='day', max_length=255, default="")
@@ -11,12 +12,41 @@ class Day(models.Model):
     actual = models.BooleanField(verbose_name='actual', default=True)
 
     @staticmethod
-    def get_day_and_events(week_day):
+    def get_day_and_events(week_day,free_mode):
         day = Day.objects.get(actual=True, week_day_id=week_day)
-        return day.get_events()
+        return day.get_events(free_mode=free_mode)
 
-    def get_events(self):
-        return Event.objects.filter(day_id=self.id)
+    def get_events(self,free_mode):
+        if free_mode:
+           return Event.objects.filter(day_id=self.id, is_free=True)
+        else:
+           return Event.objects.filter(day_id=self.id)
+
+
+    @staticmethod
+    def get_day_and_top_events(week_day,free_mode):
+        day = Day.objects.get(actual=True, week_day_id=week_day)
+        return day.get_top_events(free_mode=free_mode)
+
+    def get_top_events(self,free_mode):
+        if free_mode:
+            max_rate = Event.objects.filter(
+                day_id=self.id, is_free=True
+            ).aggregate(max_rate=Max('rating'))['max_rate']
+            events= Event.objects.filter(day_id=self.id, is_free=True,rating=max_rate)
+
+
+        else:
+            max_rate = Event.objects.filter(
+                day_id=self.id
+            ).aggregate(max_rate=Max('rating'))['max_rate']
+            events= Event.objects.filter(day_id=self.id, rating=max_rate)
+        if len(events)!=0:
+            return events[0]
+        else:
+            return None
+
+
 
     @staticmethod
     def get_actual_day(week_day):
@@ -28,6 +58,7 @@ class TelegramUser(models.Model):
     first_name = models.TextField(verbose_name='first_name', default="")
     last_name = models.TextField(verbose_name='last_name', default="")
     user_telegram_id = models.BigIntegerField(verbose_name='id', primary_key=True)
+    free_mode = models.BooleanField(verbose_name='free_mode', default=False)
 
     @staticmethod
     def add_telegram_user(chat):
@@ -40,6 +71,11 @@ class TelegramUser(models.Model):
         user.user_telegram_id = chat['id']
         user.save()
         return TelegramUser.objects.get(user_telegram_id=chat['id'])
+
+    @staticmethod
+    def get_user(chat):
+        return TelegramUser.objects.get(user_telegram_id = chat['id'])
+
 
 
 class Action(models.Model):
@@ -80,11 +116,20 @@ class Event(models.Model):
             event.save()
         except Exception as e:
             print(e)
+    @staticmethod
+    def get_event(id):
+        try:
+            return Event.objects.get(id=id)
+        except Exception as e:
+            print(e)
 
-        # def get_rating(self):
-        #    plus = Vote.objects.filter(event_id=self.id, type=True).count()
-        #    minus = Vote.objects.filter(event_id=self.id, type=False).count()
-        #    return (plus - minus)
+    def get_ability_to_vote(self,user):
+        if 0!=len(Vote.objects.filter(event_id=self.id,user_id=user.user_telegram_id)):
+            return False
+        else:
+            return True
+
+
 
 
 class Vote(models.Model):
@@ -100,10 +145,54 @@ class Vote(models.Model):
             vote.user = user
             vote.type = type_of_vote
             event.rating += 1 if type_of_vote else -1
+            event.save()
             vote.save()
         except Exception as ex:
             print(ex)
 
+
+class BotMessage(models.Model):
+    message_id= models.BigIntegerField(verbose_name='id', primary_key=True)
+    chat_id = models.BigIntegerField(verbose_name='chat_id', default=-1)
+    text = models.CharField(verbose_name='text',max_length=999, default=True)
+    event = models.ForeignKey(Event, null=True)
+
+    @staticmethod
+    def delete_old_messages(bot, update, events):
+        for event in events:
+            old_messages = BotMessage.objects.filter(event_id=event.id,chat_id=update.message.chat_id)
+            for old_message in old_messages:
+                if old_message.text != 'old info':
+                    try:
+                        old_message.text = 'old info'
+                        old_message.save()
+                        bot.editMessageText(text='old info', chat_id=old_message.chat_id, message_id=old_message.message_id)
+                    except Exception as ex:
+                        print(ex)
+
+    @staticmethod
+    def send_message(bot,update,message,parse_mode,reply_markup,event):
+        #old_messages=BotMessage.objects.filter(event_id=event.id)
+        #for old_message in old_messages:
+        #    if old_message.text!='old info':
+        #        try:
+        #            old_message.text='old info'
+        #            old_message.save()
+        #            bot.editMessageText(text='old info', chat_id=old_message.chat_id, message_id=old_message.message_id)
+        #        except Exception as ex:
+        #            print(ex)
+
+        log = bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=parse_mode,
+                        reply_markup=reply_markup)
+        print(log)
+        print(log.message_id)
+        bot_msg = BotMessage()
+
+        bot_msg.text=message
+        bot_msg.chat_id=update.message.chat_id
+        bot_msg.message_id=log.message_id
+        bot_msg.event=event
+        bot_msg.save()
 
 class WeekDay(Enum):
     Monday = 0
