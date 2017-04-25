@@ -31,4 +31,9 @@ urlpatterns = [
     url(r'^list_user/$', bot_views.list_user, name='list_user'),
     url(r'^list_action/$', bot_views.list_action, name='list_action'),
     url(r'^change_vip/(?P<user_telegram_id>[0-9]+)$', bot_views.change_vip, name='change_vip'),
+    url(r'^delete_all_event/(?P<num>[0-9]+)$', bot_views.delete_all_event, name='delete_all_event'),
+    url(r'^list_advertisement/$', bot_views.list_advertisement, name='list_advertisement'),
+    url(r'^add_advertisement/$', bot_views.add_advertisement, name='add_advertisement'),
+    url(r'^edit_advertisement/(?P<id>[0-9]+)$', bot_views.edit_advertisement, name='edit_advertisement'),
+    url(r'^delete_advertisement/(?P<id>[0-9]+)$', bot_views.delete_advertisement, name='delete_advertisement'),
 ]

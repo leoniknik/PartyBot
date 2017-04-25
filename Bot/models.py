@@ -120,6 +120,12 @@ class Event(models.Model):
             print(e)
 
     @staticmethod
+    def get_all_events_by_day(num):
+        day = Day.get_actual_day(num)
+        events = Event.objects.filter(day=day)
+        return events
+
+    @staticmethod
     def get_event(id):
         try:
             return Event.objects.get(id=id)
