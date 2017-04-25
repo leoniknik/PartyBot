@@ -1,6 +1,6 @@
 # Hello, I'm party bot, I will be called from wsgi.py once
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-from Bot.models import TelegramUser, Action, Day, WeekDay,Event,Vote,BotMessage
+from Bot.models import TelegramUser, Action, Day, WeekDay, Event, Vote, BotMessage
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, ParseMode
 import time
 
@@ -38,13 +38,10 @@ def get_keyboard(_chat):
         ]
     return ReplyKeyboardMarkup(keyboard, one_time_keyboard=False)
 
+
 def start_command(bot, update):
     try:
-        debug_print('start_command')
-        debug_print('reg user now')
         TelegramUser.add_telegram_user(update.message.chat)
-        debug_print('make keyboard')
-
         markup = get_keyboard(update.message.chat)
         update.message.reply_text('Привет:', reply_markup=markup)
     except Exception as ex:
@@ -52,7 +49,6 @@ def start_command(bot, update):
 
 
 def help_command(bot, update):
-    print('help_command')
     bot.sendMessage(chat_id=update.message.chat_id, text='help text')
 
 
@@ -82,17 +78,18 @@ week_day_reverse_dict = {
 
 
 def echo(bot, update):
-   text=update.message.text
-   if text=='Популярное':
-       send_message_top(bot=bot,update=update)
-   elif text=='Бесплатно' or text=='Все':
-       switch_free_mode(bot=bot,update=update)
-   else:
-       send_message_by_week_day(bot=bot,update=update)
+    text = update.message.text
+    if text == 'Популярное':
+        send_message_top(bot=bot, update=update)
+    elif text == 'Бесплатно' or text == 'Все':
+        switch_free_mode(bot=bot, update=update)
+    else:
+        send_message_by_week_day(bot=bot, update=update)
+
 
 def switch_free_mode(bot, update):
-    user=TelegramUser.get_user(update.message.chat)
-    user.free_mode= not user.free_mode
+    user = TelegramUser.get_user(update.message.chat)
+    user.free_mode = not user.free_mode
     user.save()
     markup = get_keyboard(update.message.chat)
     if user.free_mode:
@@ -103,28 +100,21 @@ def switch_free_mode(bot, update):
 
 def send_message_by_week_day(bot, update):
     try:
-        debug_print('text')
         user = TelegramUser.get_user(update.message.chat)
-        debug_print(update.message.text)
         Action.add_action(update.message)
         text = update.message.text
-        debug_print(text)
         week_day_id = WeekDay(week_day_reverse_dict[text])
         week_day = WeekDay(week_day_id)
-        debug_print(week_day)
-        events = Day.get_day_and_events(week_day.value,user.free_mode)
+        events = Day.get_day_and_events(week_day.value, user.free_mode)
 
-
-        event_col = len(events)#.count()
-
+        event_col = len(events)  # .count()
 
         if event_col == 0:
             message = 'На ' + week_day_dict[int(week_day.value)] + ' мероприятий не запланировано'
             bot.sendMessage(chat_id=update.message.chat_id, text=message)
         else:
 
-
-            BotMessage.delete_old_messages(bot=bot,update=update,events=events)
+            BotMessage.delete_old_messages(bot=bot, update=update, events=events)
             for i in range(0, event_col):
                 event = events[i]
 
@@ -135,64 +125,59 @@ def send_message_by_week_day(bot, update):
                 if i != (event_col - 1):
                     time.sleep(1)
 
-                #if i != (event_col - 1):
-                #    #bot.sendMessage(chat_id=update.message.chat_id, disable_notification=True, text=message,
-                #    #                parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
-                #    BotMessage.send_message(bot=bot,update=update,message=message,parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup,event=event)
-#
-                #    time.sleep(1)
-                #else:
-                #    bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN,
-                #                    reply_markup=reply_markup)
-#
-
-
-
+                    # if i != (event_col - 1):
+                    #    #bot.sendMessage(chat_id=update.message.chat_id, disable_notification=True, text=message,
+                    #    #                parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
+                    #    BotMessage.send_message(bot=bot,update=update,message=message,parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup,event=event)
+                    #
+                    #    time.sleep(1)
+                    # else:
+                    #    bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN,
+                    #                    reply_markup=reply_markup)
+                    #
     except KeyError as k_e:
         print(k_e)
         bot.sendMessage(chat_id=update.message.chat_id, text='не понимаю запрос')
     except Exception as ex:
         print(ex)
 
+
 def send_message_top(bot, update):
     try:
-        debug_print('text')
         user = TelegramUser.get_user(update.message.chat)
         debug_print(update.message.text)
         Action.add_action(update.message)
         text = update.message.text
-        events=[]
-        for i in range(0,7):
-            event=Day.get_day_and_top_events(i,user.free_mode)
-            if(event is not None):
-                events.append((i,event))
-        debug_print(events)
+        events = []
+        for i in range(0, 7):
+            event = Day.get_day_and_top_events(i, user.free_mode)
+            if event is not None:
+                events.append((i, event))
         event_col = len(events)
-        print(event_col)
 
         if event_col == 0:
             message = 'Мероприятия не найдены'
             bot.sendMessage(chat_id=update.message.chat_id, text=message)
         else:
 
-            BotMessage.delete_old_messages(bot=bot,update=update,events=events)
+            BotMessage.delete_old_messages(bot=bot, update=update, events=events)
             for i in range(0, event_col):
                 event = events[i][1]
-                week_day_id=events[i][0]
+                week_day_id = events[i][0]
 
                 message = make_message(event)
-                message = '*' + week_day_dict[week_day_id] + '*' + '\n\n'+message
+                message = '*' + week_day_dict[week_day_id] + '*' + '\n\n' + message
                 reply_markup = get_inline_keyboard(event=event, user=user)
 
                 BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
                                         reply_markup=reply_markup, event=event)
                 if i != (event_col - 1):
-                    #bot.sendMessage(chat_id=update.message.chat_id, disable_notification=True, text=message,
+                    # bot.sendMessage(chat_id=update.message.chat_id, disable_notification=True, text=message,
                     #                parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
 
                     time.sleep(1)
-                #else:
-                    #bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN,
+                    # else:
+                    # bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN,
                     #                reply_markup=reply_markup)
 
     except KeyError as k_e:
@@ -201,11 +186,13 @@ def send_message_top(bot, update):
     except Exception as ex:
         print(ex)
 
+
 def get_inline_keyboard(event, user):
     if event.get_ability_to_vote(user):
         return get_filled_inline_keyboard(event)
     else:
         return get_empty_inline_keyboard()
+
 
 def make_message(event):
     message = ''
@@ -215,81 +202,57 @@ def make_message(event):
     message += '*' + 'Рейтинг:' + str(rating) + '*'
     return message
 
+
 def get_filled_inline_keyboard(event):
-    keyboard = [[InlineKeyboardButton("+", callback_data=str(str(event.id) + '#^*_1')),
-                 InlineKeyboardButton("-", callback_data=str(str(event.id) + '#^*_0'))]]
+    keyboard = [[InlineKeyboardButton("Like", callback_data=str(str(event.id) + '#^*_1')),
+                 InlineKeyboardButton("Dislike", callback_data=str(str(event.id) + '#^*_0'))]]
 
     return InlineKeyboardMarkup(keyboard)
+
 
 def get_empty_inline_keyboard():
     keyboard = [[]]
     return InlineKeyboardMarkup(keyboard)
 
 
-
-
-
-
-
-
-
-
-
-
 def button(bot, update):
-
-
     query = update.callback_query
-    query_data_tuple=get_data_tuple(query.data)
+    query_data_tuple = get_data_tuple(query.data)
 
-    event=Event.get_event(query_data_tuple[0])
-    user=TelegramUser.get_user(update.callback_query.message.chat)
+    event = Event.get_event(query_data_tuple[0])
+    user = TelegramUser.get_user(update.callback_query.message.chat)
     print(query_data_tuple[1])
 
-
-
-
-    if query_data_tuple[1]==1:
-        type=True
+    if query_data_tuple[1] == 1:
+        type = True
     else:
-        type=False
+        type = False
 
     if event.get_ability_to_vote(user=user):
-        Vote.add_vote(type_of_vote=type,event=event,user=user)
-
+        Vote.add_vote(type_of_vote=type, event=event, user=user)
 
     event = Event.get_event(query_data_tuple[0])
 
-    message=make_message(event)
+    message = make_message(event)
     reply_markup = get_empty_inline_keyboard()
 
+    bot.editMessageText(text=message, chat_id=query.message.chat_id, message_id=query.message.message_id,
+                        parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
 
-    bot.editMessageText(text=message,chat_id=query.message.chat_id,message_id=query.message.message_id, parse_mode=ParseMode.MARKDOWN,reply_markup=reply_markup)
 
 def get_data_tuple(query_data):
     ind = query_data.index('#^*_')
-    data1=int(query_data[:ind])
-    data2=int(query_data[ind+4:])
-    return (data1,data2)
-
-
-
-
-
-
-
-
-
+    data1 = int(query_data[:ind])
+    data2 = int(query_data[ind + 4:])
+    return data1, data2
 
 
 def error(bot, update, error):
-    print(error)
+    print("Error: " + error)
 
 
 def command(bot, update):
     try:
-        print('command')
-        print(update.message.text)
         Action.add_action(update.message)
         func = command_dict[update.message.text]
         func(bot, update)
@@ -301,9 +264,21 @@ def command(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
 
+def send_message_to_all(bot, update, text):
+    sender = TelegramUser.get_user(update.message.chat_id)
+    if sender.is_VIP:
+        receivers = TelegramUser.get_all_users()
+        for receiver in receivers:
+            bot.sendMessage(chat_id=receiver.user_telegram_id, text=text)
+    else:
+        bot.sendMessage(chat_id=update.message.chat_id, text="Вы не можете использовать данную функцию, обратитесь к администратору")
+
+
 command_handler = MessageHandler(Filters.command, command)
 echo_handler = MessageHandler(Filters.text, echo)
+send_message_to_all_handler = CommandHandler('all', send_message_to_all, pass_args=True)
 
+dispatcher.add_handler(send_message_to_all_handler)
 dispatcher.add_handler(command_handler)
 dispatcher.add_error_handler(error)
 dispatcher.add_handler(echo_handler)
@@ -311,3 +286,4 @@ dispatcher.add_handler(echo_handler)
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
 updater.start_polling()
+

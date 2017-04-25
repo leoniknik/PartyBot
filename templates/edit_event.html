@@ -1,31 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form action="" method="post" id="edit_form">{% csrf_token %}
-        <div>
-            <label for="header">Заголовок: </label>
-        </div>
-        <div>
-            <input id="header" type="text" name="header" value={{ event.header }}>
-        </div>
-        <div>
-            <label for="description">Описание: </label>
-        </div>
-        <div>
+    <div class="text-center">
+        <form action="" method="post" id="edit_form">{% csrf_token %}
+            <div>
+                <label for="header">Заголовок: </label>
+            </div>
+            <div>
+                <input id="header" type="text" name="header" value={{ event.header }}>
+            </div>
+            <div>
+                <label for="description">Описание: </label>
+            </div>
+            <div>
             <textarea id="description" rows="20" cols="70" name="description"
                       form="edit_form">{{ event.description }}</textarea>
-        </div>
-        <div>
-            <label>Бесплатно: </label>
-            {% if event.is_free %}
-                <p><input name="is_free" type="radio" value="true" checked>Да</p>
-                <p><input name="is_free" type="radio" value="false">Нет</p>
-            {% else %}
-                <p><input name="is_free" type="radio" value="true">Да</p>
-                <p><input name="is_free" type="radio" value="false" checked>Нет</p>
-            {% endif %}
-        </div>
-        <div>
-            <input type="submit" value="ОК">
-        </div>
-    </form>
+            </div>
+            <div>
+                <label>Бесплатно: </label>
+                {% if event.is_free %}
+                    <p><input name="is_free" type="radio" value="true" checked>Да</p>
+                    <p><input name="is_free" type="radio" value="false">Нет</p>
+                {% else %}
+                    <p><input name="is_free" type="radio" value="true">Да</p>
+                    <p><input name="is_free" type="radio" value="false" checked>Нет</p>
+                {% endif %}
+            </div>
+            <div>
+                <input type="submit" value="Подтвердить" class="btn btn-success">
+            </div>
+        </form>
+    </div>
 {% endblock %}
