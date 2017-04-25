@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^delete_event/(?P<id>[0-9]+)/(?P<num>[0-9]+)$', bot_views.delete_event, name='delete_event'),
     url(r'^list_user/$', bot_views.list_user, name='list_user'),
     url(r'^list_action/$', bot_views.list_action, name='list_action'),
+    url(r'^change_vip/(?P<user_telegram_id>[0-9]+)$', bot_views.change_vip, name='change_vip'),
 ]

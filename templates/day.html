@@ -25,11 +25,11 @@
                         </td>
                         <td>{{ active.rating }}</td>
                         <td>
-                           <a href="{% url 'edit_event' id=active.id num=num %}" class="btn btn-default btn-lg">
+                           <a href="{% url 'edit_event' id=active.id num=num %}" class="btn btn-default btn-lg btn-warning">
                                 <span class="glyphicon glyphicon-pencil"></span></a>
                         </td>
                         <td>
-                            <a href="{% url 'delete_event' id=active.id num=num %}" class="btn btn-default btn-lg">
+                            <a href="{% url 'delete_event' id=active.id num=num %}" class="btn btn-default btn-lg btn-danger">
                                 <span class="glyphicon glyphicon-remove"></span></a>
                         </td>
                     </tr>

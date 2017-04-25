@@ -54,6 +54,7 @@ class TelegramUser(models.Model):
     last_name = models.TextField(verbose_name='last_name', default="")
     user_telegram_id = models.BigIntegerField(verbose_name='id', primary_key=True)
     free_mode = models.BooleanField(verbose_name='free_mode', default=False)
+    is_VIP = models.BooleanField(verbose_name='is_VIP', default=False)
 
     @staticmethod
     def add_telegram_user(chat):
@@ -68,6 +69,17 @@ class TelegramUser(models.Model):
     @staticmethod
     def get_user(chat):
         return TelegramUser.objects.get(user_telegram_id=chat['id'])
+
+    @staticmethod
+    def get_all_users():
+        return TelegramUser.objects.all()
+
+    def change_is_VIP(self):
+        if self.is_VIP:
+            self.is_VIP = False
+        else:
+            self.is_VIP = True
+        self.save()
 
 
 class Action(models.Model):
@@ -143,7 +155,7 @@ class Vote(models.Model):
 class BotMessage(models.Model):
     message_id = models.BigIntegerField(verbose_name='id', primary_key=True)
     chat_id = models.BigIntegerField(verbose_name='chat_id', default=-1)
-    text = models.TextField(verbose_name='text', default=True)
+    text = models.TextField(verbose_name='text', default="")
     event = models.ForeignKey(Event, null=True)
 
     @staticmethod
@@ -180,3 +192,16 @@ class WeekDay(Enum):
     Friday = 4
     Saturday = 5
     Sunday = 6
+
+
+class Advertisement(models.Model):
+    text = models.TextField(verbose_name='text', default="")
+
+    @staticmethod
+    def add_advertisement(text):
+        try:
+            advertisement = Advertisement()
+            advertisement.text = text
+            advertisement.save()
+        except Exception as ex:
+            print(ex)

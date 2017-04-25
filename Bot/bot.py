@@ -129,12 +129,12 @@ def send_message_by_week_day(bot, update):
                     #    #bot.sendMessage(chat_id=update.message.chat_id, disable_notification=True, text=message,
                     #    #                parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
                     #    BotMessage.send_message(bot=bot,update=update,message=message,parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup,event=event)
-                #
-                #    time.sleep(1)
-                # else:
-                #    bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN,
-                #                    reply_markup=reply_markup)
-                #
+                    #
+                    #    time.sleep(1)
+                    # else:
+                    #    bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN,
+                    #                    reply_markup=reply_markup)
+                    #
     except KeyError as k_e:
         print(k_e)
         bot.sendMessage(chat_id=update.message.chat_id, text='не понимаю запрос')
@@ -144,7 +144,6 @@ def send_message_by_week_day(bot, update):
 
 def send_message_top(bot, update):
     try:
-        debug_print('text')
         user = TelegramUser.get_user(update.message.chat)
         debug_print(update.message.text)
         Action.add_action(update.message)
@@ -152,11 +151,9 @@ def send_message_top(bot, update):
         events = []
         for i in range(0, 7):
             event = Day.get_day_and_top_events(i, user.free_mode)
-            if (event is not None):
+            if event is not None:
                 events.append((i, event))
-        debug_print(events)
         event_col = len(events)
-        print(event_col)
 
         if event_col == 0:
             message = 'Мероприятия не найдены'
@@ -267,9 +264,21 @@ def command(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
 
+def send_message_to_all(bot, update, text):
+    sender = TelegramUser.get_user(update.message.chat_id)
+    if sender.is_VIP:
+        receivers = TelegramUser.get_all_users()
+        for receiver in receivers:
+            bot.sendMessage(chat_id=receiver.user_telegram_id, text=text)
+    else:
+        bot.sendMessage(chat_id=update.message.chat_id, text="Вы не можете использовать данную функцию, обратитесь к администратору")
+
+
 command_handler = MessageHandler(Filters.command, command)
 echo_handler = MessageHandler(Filters.text, echo)
+send_message_to_all_handler = CommandHandler('all', send_message_to_all, pass_args=True)
 
+dispatcher.add_handler(send_message_to_all_handler)
 dispatcher.add_handler(command_handler)
 dispatcher.add_error_handler(error)
 dispatcher.add_handler(echo_handler)
@@ -277,3 +286,4 @@ dispatcher.add_handler(echo_handler)
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
 updater.start_polling()
+

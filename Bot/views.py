@@ -76,11 +76,42 @@ def delete_event(request, id, num):
 
 @login_required
 def list_user(request):
-    users = TelegramUser.objects.all().values('username', 'first_name', 'last_name')
+    users = TelegramUser.objects.all().values('username', 'first_name', 'last_name', 'is_VIP', 'user_telegram_id')
     return render(request, 'list_user.html', {'users': users})
 
 
 @login_required
 def list_action(request):
+    actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
+    return render(request, 'list_action.html', {'actions': actions})
+
+
+@login_required
+def change_vip(request, user_telegram_id):
+    user = TelegramUser.objects.get(user_telegram_id=user_telegram_id)
+    user.change_is_VIP()
+    return redirect('list_user')
+
+
+@login_required
+def list_promotion(request):
+    actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
+    return render(request, 'list_action.html', {'actions': actions})
+
+
+@login_required
+def add_promotion(request):
+    actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
+    return render(request, 'list_action.html', {'actions': actions})
+
+
+@login_required
+def edit_promotion(request):
+    actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
+    return render(request, 'list_action.html', {'actions': actions})
+
+
+@login_required
+def delete_promotion(request):
     actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
     return render(request, 'list_action.html', {'actions': actions})
