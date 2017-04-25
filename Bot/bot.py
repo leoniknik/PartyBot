@@ -41,11 +41,7 @@ def get_keyboard(_chat):
 
 def start_command(bot, update):
     try:
-        debug_print('start_command')
-        debug_print('reg user now')
         TelegramUser.add_telegram_user(update.message.chat)
-        debug_print('make keyboard')
-
         markup = get_keyboard(update.message.chat)
         update.message.reply_text('Привет:', reply_markup=markup)
     except Exception as ex:
@@ -53,7 +49,6 @@ def start_command(bot, update):
 
 
 def help_command(bot, update):
-    print('help_command')
     bot.sendMessage(chat_id=update.message.chat_id, text='help text')
 
 
@@ -105,15 +100,11 @@ def switch_free_mode(bot, update):
 
 def send_message_by_week_day(bot, update):
     try:
-        debug_print('text')
         user = TelegramUser.get_user(update.message.chat)
-        debug_print(update.message.text)
         Action.add_action(update.message)
         text = update.message.text
-        debug_print(text)
         week_day_id = WeekDay(week_day_reverse_dict[text])
         week_day = WeekDay(week_day_id)
-        debug_print(week_day)
         events = Day.get_day_and_events(week_day.value, user.free_mode)
 
         event_col = len(events)  # .count()
@@ -144,9 +135,6 @@ def send_message_by_week_day(bot, update):
                 #    bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN,
                 #                    reply_markup=reply_markup)
                 #
-
-
-
     except KeyError as k_e:
         print(k_e)
         bot.sendMessage(chat_id=update.message.chat_id, text='не понимаю запрос')
@@ -259,17 +247,15 @@ def get_data_tuple(query_data):
     ind = query_data.index('#^*_')
     data1 = int(query_data[:ind])
     data2 = int(query_data[ind + 4:])
-    return (data1, data2)
+    return data1, data2
 
 
 def error(bot, update, error):
-    print(error)
+    print("Error: " + error)
 
 
 def command(bot, update):
     try:
-        print('command')
-        print(update.message.text)
         Action.add_action(update.message)
         func = command_dict[update.message.text]
         func(bot, update)
