@@ -34,7 +34,7 @@ def day(request, num):
 @login_required
 def add_event(request, num):
     if request.method == 'GET':
-        return render(request, 'add_event.html')
+        return render(request, 'advertisement.html')
     elif request.method == 'POST':
         header = request.POST['header']
         description = request.POST['description']
@@ -94,24 +94,46 @@ def change_vip(request, user_telegram_id):
 
 
 @login_required
-def list_promotion(request):
-    actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
-    return render(request, 'list_action.html', {'actions': actions})
+def delete_all_event(request, num):
+    events = Event.get_all_events_by_day(num)
+    events.delete()
+    return redirect('day', num=num)
 
 
 @login_required
-def add_promotion(request):
-    actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
-    return render(request, 'list_action.html', {'actions': actions})
+def list_advertisement(request):
+    advertisements = Advertisement.objects.all()
+    return render(request, 'list_advertisement.html', {'advertisements': advertisements})
 
 
 @login_required
-def edit_promotion(request):
-    actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
-    return render(request, 'list_action.html', {'actions': actions})
+def add_advertisement(request):
+    if request.method == 'GET':
+        return render(request, 'advertisement.html')
+    elif request.method == 'POST':
+        text = request.POST['text']
+        Advertisement.add_advertisement(text)
+    return redirect('list_advertisement')
 
 
 @login_required
-def delete_promotion(request):
-    actions = Action.objects.all().values('user__username', 'user__first_name', 'message', 'time')
-    return render(request, 'list_action.html', {'actions': actions})
+def edit_advertisement(request, id):
+    if request.method == 'GET':
+        advertisement = get_object_or_404(Advertisement, id=id)
+        return render(request, 'advertisement.html', {'advertisement':advertisement})
+    elif request.method == 'POST':
+        text = request.POST['text']
+        advertisement = Advertisement.objects.get(id=id)
+        advertisement.text = text
+        add_advertisement.save()
+        return redirect('list_advertisement')
+
+
+@login_required
+def delete_advertisement(request, id):
+    advertisement = get_object_or_404(Advertisement, id=id)
+    advertisement.delete()
+    return redirect('list_advertisement')
+
+
+

@@ -3,8 +3,9 @@
 
 {% block content %}
     <h4>Привет, ты зашел как {{ user.username }}</h4>
-    <p class="text-center"><a href="{% url 'list_user'%}" class="btn btn-info">Посмотреть список пользователей</a></p>
-    <p class="text-center"><a href="{% url 'list_action'%}" class="btn btn-info">Посмотреть список действий пользователей</a></p>
+    <p class="text-center"><a href="{% url 'list_user' %}" class="btn btn-info">Cписок пользователей</a></p>
+    <p class="text-center"><a href="{% url 'list_action' %}" class="btn btn-info">Cписок действий пользователей</a></p>
+    <p class="text-center"><a href="{% url 'list_advertisement' %}" class="btn btn-info">Акции</a></p>
     <ul class="nav nav-pills nav-justified" id="myTab">
         <li><a href="{% url 'day' num=3 %}">Четверг</a></li>
         <li><a href="{% url 'day' num=4 %}">Пятница</a></li>
