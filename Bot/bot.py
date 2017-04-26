@@ -1,6 +1,6 @@
 # Hello, I'm party bot, I will be called from wsgi.py once
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-from Bot.models import TelegramUser, Action, Day, WeekDay, Event, Vote, BotMessage,Advertisement
+from Bot.models import TelegramUser, Action, Day, WeekDay, Event, Vote, BotMessage, Advertisement
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, ParseMode
 import time
 
@@ -50,7 +50,8 @@ def start_command(bot, update):
 def help_command(bot, update):
     bot.sendMessage(chat_id=update.message.chat_id, text='help text')
 
-def send_message_to_all(bot, update,text):
+
+def send_message_to_all(bot, update, text):
     message = update.callback_query.message
     sender = TelegramUser.get_user(message.chat)
     if sender.is_VIP:
@@ -58,12 +59,14 @@ def send_message_to_all(bot, update,text):
         for receiver in receivers:
             bot.sendMessage(chat_id=receiver.user_telegram_id, text=text)
     else:
-        bot.sendMessage(chat_id=message.chat_id, text="Вы не можете использовать данную функцию, обратитесь к администратору")
+        bot.sendMessage(chat_id=message.chat_id,
+                        text="Вы не можете использовать данную функцию, обратитесь к администратору")
+
 
 command_dict = {
     "/start": start_command,
     "/help": help_command
-    #"/all":send_message_to_all
+    # "/all":send_message_to_all
 }
 
 week_day_dict = {
@@ -88,7 +91,7 @@ week_day_reverse_dict = {
 
 def echo(bot, update):
     text = update.message.text
-    if text=='Акции':
+    if text == 'Акции':
         send_advetrisments(bot=bot, update=update)
     elif text == 'Популярное  💯':
         send_message_top(bot=bot, update=update)
@@ -132,15 +135,15 @@ def send_message_by_week_day(bot, update):
 
                 message = make_message(event)
                 reply_markup = get_inline_keyboard(event=event, user=user)
-                #BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
+                # BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
                 #                        reply_markup=reply_markup, event=event)
                 if i != (event_col - 1):
                     BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
-                                            reply_markup=reply_markup, event=event,silent=True)
+                                            reply_markup=reply_markup, event=event, silent=True)
                     time.sleep(1)
                 else:
                     BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
-                                            reply_markup=reply_markup, event=event,silent=False)
+                                            reply_markup=reply_markup, event=event, silent=False)
 
 
     except KeyError as k_e:
@@ -179,15 +182,15 @@ def send_message_top(bot, update):
                 message = '*' + week_day_dict[week_day_id] + '*' + '\n\n' + message
                 reply_markup = get_inline_keyboard(event=event, user=user)
 
-                #BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
+                # BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
                 #                        reply_markup=reply_markup, event=event)
                 if i != (event_col - 1):
                     BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
-                                            reply_markup=reply_markup, event=event,silent=True)
+                                            reply_markup=reply_markup, event=event, silent=True)
                     time.sleep(1)
                 else:
                     BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
-                                            reply_markup=reply_markup, event=event,silent=False)
+                                            reply_markup=reply_markup, event=event, silent=False)
 
 
     except KeyError as k_e:
@@ -195,6 +198,7 @@ def send_message_top(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text='не понимаю запрос')
     except Exception as ex:
         print(ex)
+
 
 def send_advetrisments(bot, update):
     try:
@@ -207,15 +211,15 @@ def send_advetrisments(bot, update):
 
         if advertisment_col == 0:
             message = 'Акций нет'
-            bot.sendMessage(chat_id=update.message.chat_id, text=message,disable_notification=True)
+            bot.sendMessage(chat_id=update.message.chat_id, text=message, disable_notification=True)
         else:
 
             bot.sendMessage(chat_id=update.message.chat_id, text='*Акции*\n\n', parse_mode=ParseMode.MARKDOWN)
             for i in range(0, advertisment_col):
-                #bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text, parse_mode=ParseMode.MARKDOWN)
+                # bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text, parse_mode=ParseMode.MARKDOWN)
                 if i != (advertisment_col - 1):
                     bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text,
-                                    parse_mode=ParseMode.MARKDOWN,disable_notification=True)
+                                    parse_mode=ParseMode.MARKDOWN, disable_notification=True)
                     time.sleep(1)
                 else:
                     bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text,
@@ -227,6 +231,7 @@ def send_advetrisments(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text='не понимаю запрос')
     except Exception as ex:
         print(ex)
+
 
 def get_inline_keyboard(event, user):
     if event.get_ability_to_vote(user):
@@ -260,22 +265,21 @@ def button(bot, update):
     query = update.callback_query
     query_data_tuple = get_data_tuple(query.data)
 
-
     user = TelegramUser.get_user(update.callback_query.message.chat)
     print(query_data_tuple[1])
 
-    if query_data_tuple[1]==2 or query_data_tuple[1]==3:
-        text=query_data_tuple[0]
+    if query_data_tuple[1] == 2 or query_data_tuple[1] == 3:
+        text = query_data_tuple[0]
         if query_data_tuple[1] == 2:
 
             bot.editMessageText(text='Рассылка выполнена', chat_id=update.callback_query.message.chat_id,
-                            message_id=update.callback_query.message.message_id,
-                            parse_mode=ParseMode.MARKDOWN)
-            send_message_to_all(bot=bot,update=update,text=text)
+                                message_id=update.callback_query.message.message_id,
+                                parse_mode=ParseMode.MARKDOWN)
+            send_message_to_all(bot=bot, update=update, text=text)
         else:
             bot.editMessageText(text='Рассылка отменена', chat_id=update.callback_query.message.chat_id,
-                            message_id=update.callback_query.message.message_id,
-                            parse_mode=ParseMode.MARKDOWN)
+                                message_id=update.callback_query.message.message_id,
+                                parse_mode=ParseMode.MARKDOWN)
     else:
         event = Event.get_event(query_data_tuple[0])
         if query_data_tuple[1] == 1:
@@ -309,19 +313,19 @@ def error(bot, update, error):
 def command(bot, update):
     try:
         Action.add_action(update.message)
-        command_text=update.message.text
+        command_text = update.message.text
         print(command_text[0:4])
-        if command_text[0:4]=='/all':
+        if command_text[0:4] == '/all':
             sender = TelegramUser.get_user(update.message.chat)
             if sender.is_VIP:
-                text=command_text[5:]
+                text = command_text[5:]
 
                 keyboard = [[InlineKeyboardButton("Да", callback_data=text + '#^*_2'),
-                             InlineKeyboardButton("Нет", callback_data=text+ '#^*_3')]]
+                             InlineKeyboardButton("Нет", callback_data=text + '#^*_3')]]
 
-                reply_markup= InlineKeyboardMarkup(keyboard)
+                reply_markup = InlineKeyboardMarkup(keyboard)
 
-                bot.sendMessage(text='Отправить всем следующее сообщение?\n'+text, chat_id=update.message.chat_id,
+                bot.sendMessage(text='Отправить всем следующее сообщение?\n' + text, chat_id=update.message.chat_id,
                                 parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
             else:
                 bot.sendMessage(chat_id=update.message.chat_id,
@@ -338,8 +342,6 @@ def command(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
 
-
-
 command_handler = MessageHandler(Filters.command, command)
 echo_handler = MessageHandler(Filters.text, echo)
 
@@ -350,4 +352,3 @@ dispatcher.add_handler(echo_handler)
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
 updater.start_polling()
-
