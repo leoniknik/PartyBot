@@ -7,11 +7,15 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 
-import Bot.bot # bot's initialization
+
 import os
+import django
 
+import os
 from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'PartyBot.settings'
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "PartyBot.settings")
+
 application = get_wsgi_application()
-
+application = DjangoWhiteNoise(application)

@@ -37,3 +37,5 @@ urlpatterns = [
     url(r'^edit_advertisement/(?P<id>[0-9]+)$', bot_views.edit_advertisement, name='edit_advertisement'),
     url(r'^delete_advertisement/(?P<id>[0-9]+)$', bot_views.delete_advertisement, name='delete_advertisement'),
 ]
+
+import Bot.bot # bot's initialization
