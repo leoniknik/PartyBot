@@ -3,9 +3,8 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 from Bot.models import TelegramUser, Action, Day, WeekDay, Event, Vote, BotMessage,Advertisement
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, ParseMode
 import time
+import threading
 
-updater = Updater(token='333359292:AAGf_E6lYBiojMkuyfxW1wefq65D9f2QAss')
-dispatcher = updater.dispatcher
 
 # TODO: for Kirill decorator
 
@@ -87,15 +86,18 @@ week_day_reverse_dict = {
 
 
 def echo(bot, update):
-    text = update.message.text
-    if text=='Акции':
-        send_advetrisments(bot=bot, update=update)
-    elif text == 'Популярное  💯':
-        send_message_top(bot=bot, update=update)
-    elif text == 'Бесплатно 🆓' or text == 'Все':
-        switch_free_mode(bot=bot, update=update)
-    else:
-        send_message_by_week_day(bot=bot, update=update)
+    try:
+        text = update.message.text
+        if text=='Акции':
+            send_advetrisments(bot=bot, update=update)
+        elif text == 'Популярное  💯':
+            send_message_top(bot=bot, update=update)
+        elif text == 'Бесплатно 🆓' or text == 'Все':
+            switch_free_mode(bot=bot, update=update)
+        else:
+            send_message_by_week_day(bot=bot, update=update)
+    except Exception as ex:
+        print(ex)
 
 
 def switch_free_mode(bot, update):
@@ -257,42 +259,45 @@ def get_empty_inline_keyboard():
 
 
 def button(bot, update):
-    query = update.callback_query
-    query_data_tuple = get_data_tuple(query.data)
+    try:
+        query = update.callback_query
+        query_data_tuple = get_data_tuple(query.data)
 
 
-    user = TelegramUser.get_user(update.callback_query.message.chat)
-    print(query_data_tuple[1])
+        user = TelegramUser.get_user(update.callback_query.message.chat)
+        print(query_data_tuple[1])
 
-    if query_data_tuple[1]==2 or query_data_tuple[1]==3:
-        text=query_data_tuple[0]
-        if query_data_tuple[1] == 2:
+        if query_data_tuple[1]==2 or query_data_tuple[1]==3:
+            text=query_data_tuple[0]
+            if query_data_tuple[1] == 2:
 
-            bot.editMessageText(text='Рассылка выполнена', chat_id=update.callback_query.message.chat_id,
-                            message_id=update.callback_query.message.message_id,
-                            parse_mode=ParseMode.MARKDOWN)
-            send_message_to_all(bot=bot,update=update,text=text)
+                bot.editMessageText(text='Рассылка выполнена', chat_id=update.callback_query.message.chat_id,
+                                message_id=update.callback_query.message.message_id,
+                                parse_mode=ParseMode.MARKDOWN)
+                send_message_to_all(bot=bot,update=update,text=text)
+            else:
+                bot.editMessageText(text='Рассылка отменена', chat_id=update.callback_query.message.chat_id,
+                                message_id=update.callback_query.message.message_id,
+                                parse_mode=ParseMode.MARKDOWN)
         else:
-            bot.editMessageText(text='Рассылка отменена', chat_id=update.callback_query.message.chat_id,
-                            message_id=update.callback_query.message.message_id,
-                            parse_mode=ParseMode.MARKDOWN)
-    else:
-        event = Event.get_event(query_data_tuple[0])
-        if query_data_tuple[1] == 1:
-            type = True
-        else:
-            type = False
+            event = Event.get_event(query_data_tuple[0])
+            if query_data_tuple[1] == 1:
+                type = True
+            else:
+                type = False
 
-        if event.get_ability_to_vote(user=user):
-            Vote.add_vote(type_of_vote=type, event=event, user=user)
+            if event.get_ability_to_vote(user=user):
+                Vote.add_vote(type_of_vote=type, event=event, user=user)
 
-        event = Event.get_event(int(query_data_tuple[0]))
+            event = Event.get_event(int(query_data_tuple[0]))
 
-        message = make_message(event)
-        reply_markup = get_empty_inline_keyboard()
+            message = make_message(event)
+            reply_markup = get_empty_inline_keyboard()
 
-        bot.editMessageText(text=message, chat_id=query.message.chat_id, message_id=query.message.message_id,
-                            parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
+            bot.editMessageText(text=message, chat_id=query.message.chat_id, message_id=query.message.message_id,
+                                parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
+    except Exception as ex:
+        print(ex)
 
 
 def get_data_tuple(query_data):
@@ -303,7 +308,12 @@ def get_data_tuple(query_data):
 
 
 def error(bot, update, error):
-    print("Error: " + error)
+    try:
+        print("Error: ")
+        print(error)
+    except Exception as ex:
+        print(ex)
+
 
 
 def command(bot, update):
@@ -337,17 +347,41 @@ def command(bot, update):
         print(ex)
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
-
+def work_cycle():
+    try:
+        updater.start_polling()
+    except Exception as ex:
+        print('bot crashed:')
+        work_cycle()
 
 
 command_handler = MessageHandler(Filters.command, command)
 echo_handler = MessageHandler(Filters.text, echo)
-
+updater = Updater(token='333359292:AAGf_E6lYBiojMkuyfxW1wefq65D9f2QAss')
+dispatcher = updater.dispatcher
 dispatcher.add_handler(command_handler)
 dispatcher.add_error_handler(error)
 dispatcher.add_handler(echo_handler)
 
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
-updater.start_polling()
+work_cycle()
 
+
+
+
+
+#nit = threading.Thread(target=work_cycle)
+#nit.start()
+#while(True):
+#    print('start check')
+#    if nit is not None:
+#        if  not nit.is_alive():
+#            nit = threading.Thread(target=work_cycle)
+#            nit.start()
+#        else:
+#            print('bot is alive')
+#            time.sleep(5)
+#    else:
+#        nit = threading.Thread(target=work_cycle)
+#        nit.start()
