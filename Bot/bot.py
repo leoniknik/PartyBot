@@ -128,7 +128,7 @@ def send_message_by_week_day(bot, update):
             bot.sendMessage(chat_id=update.message.chat_id, text=message)
         else:
 
-            BotMessage.delete_old_messages(bot=bot, update=update, events=events)
+            #BotMessage.delete_old_messages(bot=bot, update=update, events=events,message=update.message)
             for i in range(0, event_col):
                 event = events[i]
 
@@ -164,7 +164,7 @@ def send_message_top(bot, update):
             event = Day.get_day_and_top_events(i, user.free_mode)
             if event is not None:
                 events.append((i, event))
-                events.append(event)
+                events_only.append(event)
         event_col = len(events)
 
         if event_col == 0:
@@ -172,13 +172,13 @@ def send_message_top(bot, update):
             bot.sendMessage(chat_id=update.message.chat_id, text=message)
         else:
 
-            BotMessage.delete_old_messages(bot=bot, update=update, events=events_only)
+            #BotMessage.delete_old_messages(bot=bot, update=update, events=events_only,message=update.message)
             for i in range(0, event_col):
                 event = events[i][1]
                 week_day_id = events[i][0]
 
                 message = make_message(event)
-                message = '*' + week_day_dict[week_day_id] + '*' + '\n\n' + message
+                message = '*' + week_day_dict[week_day_id] + '*' + '\n' + message
                 reply_markup = get_inline_keyboard(event=event, user=user)
 
                 #BotMessage.send_message(bot=bot, update=update, message=message, parse_mode=ParseMode.MARKDOWN,
@@ -212,7 +212,7 @@ def send_advetrisments(bot, update):
             bot.sendMessage(chat_id=update.message.chat_id, text=message,disable_notification=True)
         else:
 
-            bot.sendMessage(chat_id=update.message.chat_id, text='*Акции*\n\n', parse_mode=ParseMode.MARKDOWN)
+            #bot.sendMessage(chat_id=update.message.chat_id, text='*Акции*\n\n', parse_mode=ParseMode.MARKDOWN)
             for i in range(0, advertisment_col):
                 #bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text, parse_mode=ParseMode.MARKDOWN)
                 if i != (advertisment_col - 1):
@@ -242,7 +242,7 @@ def make_message(event):
     message += '*' + event.header + '*' + '\n'
     message += event.description + '\n'
     rating = event.rating
-    message += '' + 'Рейтинг:' + str(rating) + ''
+    message += '' + 'Рейтинг: ' + str(rating) + ''
     return message
 
 
@@ -281,6 +281,9 @@ def button(bot, update):
                                 parse_mode=ParseMode.MARKDOWN)
         else:
             event = Event.get_event(query_data_tuple[0])
+
+
+
             if query_data_tuple[1] == 1:
                 type = True
             else:
@@ -296,6 +299,10 @@ def button(bot, update):
 
             bot.editMessageText(text=message, chat_id=query.message.chat_id, message_id=query.message.message_id,
                                 parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
+
+            BotMessage.delete_old_messages(bot=bot,update=update,events=[event],message=update.callback_query.message)
+
+
     except Exception as ex:
         print(ex)
 
@@ -357,7 +364,7 @@ def work_cycle():
 
 command_handler = MessageHandler(Filters.command, command)
 echo_handler = MessageHandler(Filters.text, echo)
-updater = Updater(token='333359292:AAGf_E6lYBiojMkuyfxW1wefq65D9f2QAss')
+updater = Updater(token='361018005:AAHY53Qj5EKEQHwf-g7LwoMf0UbiMzvCgAE')
 dispatcher = updater.dispatcher
 dispatcher.add_handler(command_handler)
 dispatcher.add_error_handler(error)
