@@ -179,9 +179,9 @@ class BotMessage(models.Model):
                         print(ex)
 
     @staticmethod
-    def send_message(bot, update, message, parse_mode, reply_markup, event):
+    def send_message(bot, update, message, parse_mode, reply_markup, event,silent):
         log = bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=parse_mode,
-                              reply_markup=reply_markup)
+                              reply_markup=reply_markup,disable_notification=silent)
         bot_msg = BotMessage()
         bot_msg.text = message
         bot_msg.chat_id = update.message.chat_id
