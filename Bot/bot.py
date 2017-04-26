@@ -5,7 +5,6 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMa
 import time
 import threading
 
-
 # TODO: for Kirill decorator
 
 debug = False
@@ -89,20 +88,9 @@ week_day_reverse_dict = {
 
 
 def echo(bot, update):
-<<<<<<< HEAD
-    text = update.message.text
-    if text == 'Акции':
-        send_advetrisments(bot=bot, update=update)
-    elif text == 'Популярное  💯':
-        send_message_top(bot=bot, update=update)
-    elif text == 'Бесплатно 🆓' or text == 'Все':
-        switch_free_mode(bot=bot, update=update)
-    else:
-        send_message_by_week_day(bot=bot, update=update)
-=======
     try:
         text = update.message.text
-        if text=='Акции':
+        if text == 'Акции':
             send_advetrisments(bot=bot, update=update)
         elif text == 'Популярное  💯':
             send_message_top(bot=bot, update=update)
@@ -112,7 +100,6 @@ def echo(bot, update):
             send_message_by_week_day(bot=bot, update=update)
     except Exception as ex:
         print(ex)
->>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
 
 
 def switch_free_mode(bot, update):
@@ -280,44 +267,21 @@ def button(bot, update):
         query = update.callback_query
         query_data_tuple = get_data_tuple(query.data)
 
-<<<<<<< HEAD
-    user = TelegramUser.get_user(update.callback_query.message.chat)
-    print(query_data_tuple[1])
-
-    if query_data_tuple[1] == 2 or query_data_tuple[1] == 3:
-        text = query_data_tuple[0]
-        if query_data_tuple[1] == 2:
-
-            bot.editMessageText(text='Рассылка выполнена', chat_id=update.callback_query.message.chat_id,
-                                message_id=update.callback_query.message.message_id,
-                                parse_mode=ParseMode.MARKDOWN)
-            send_message_to_all(bot=bot, update=update, text=text)
-        else:
-            bot.editMessageText(text='Рассылка отменена', chat_id=update.callback_query.message.chat_id,
-                                message_id=update.callback_query.message.message_id,
-                                parse_mode=ParseMode.MARKDOWN)
-    else:
-        event = Event.get_event(query_data_tuple[0])
-        if query_data_tuple[1] == 1:
-            type = True
-=======
-
         user = TelegramUser.get_user(update.callback_query.message.chat)
         print(query_data_tuple[1])
 
-        if query_data_tuple[1]==2 or query_data_tuple[1]==3:
-            text=query_data_tuple[0]
+        if query_data_tuple[1] == 2 or query_data_tuple[1] == 3:
+            text = query_data_tuple[0]
             if query_data_tuple[1] == 2:
 
                 bot.editMessageText(text='Рассылка выполнена', chat_id=update.callback_query.message.chat_id,
-                                message_id=update.callback_query.message.message_id,
-                                parse_mode=ParseMode.MARKDOWN)
-                send_message_to_all(bot=bot,update=update,text=text)
+                                    message_id=update.callback_query.message.message_id,
+                                    parse_mode=ParseMode.MARKDOWN)
+                send_message_to_all(bot=bot, update=update, text=text)
             else:
                 bot.editMessageText(text='Рассылка отменена', chat_id=update.callback_query.message.chat_id,
-                                message_id=update.callback_query.message.message_id,
-                                parse_mode=ParseMode.MARKDOWN)
->>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
+                                    message_id=update.callback_query.message.message_id,
+                                    parse_mode=ParseMode.MARKDOWN)
         else:
             event = Event.get_event(query_data_tuple[0])
             if query_data_tuple[1] == 1:
@@ -354,7 +318,6 @@ def error(bot, update, error):
         print(ex)
 
 
-
 def command(bot, update):
     try:
         Action.add_action(update.message)
@@ -386,8 +349,7 @@ def command(bot, update):
         print(ex)
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
-<<<<<<< HEAD
-=======
+
 def work_cycle():
     try:
         updater.start_polling()
@@ -395,7 +357,6 @@ def work_cycle():
         print('bot crashed:')
         work_cycle()
 
->>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
 
 command_handler = MessageHandler(Filters.command, command)
 echo_handler = MessageHandler(Filters.text, echo)
@@ -407,18 +368,15 @@ dispatcher.add_handler(echo_handler)
 
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
-<<<<<<< HEAD
-updater.start_polling()
-=======
 work_cycle()
 
 
 
 
 
-#nit = threading.Thread(target=work_cycle)
-#nit.start()
-#while(True):
+# nit = threading.Thread(target=work_cycle)
+# nit.start()
+# while(True):
 #    print('start check')
 #    if nit is not None:
 #        if  not nit.is_alive():
@@ -430,4 +388,3 @@ work_cycle()
 #    else:
 #        nit = threading.Thread(target=work_cycle)
 #        nit.start()
->>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f

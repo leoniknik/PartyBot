@@ -8,11 +8,14 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 
 import os
+import django
 import Bot.bot # bot's initialization
 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "PartyBot.settings")
+
+django.setup()
 
 application = get_wsgi_application()
 
