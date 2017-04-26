@@ -3,7 +3,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 from Bot.models import TelegramUser, Action, Day, WeekDay, Event, Vote, BotMessage, Advertisement
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, ParseMode
 import time
-import threading
 
 # TODO: for Kirill decorator
 
