@@ -7,11 +7,18 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/temp" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/PartyBot.iml" afterPath="$PROJECT_DIR$/.idea/PartyBot.iml" />
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Bot/bot.py" afterPath="$PROJECT_DIR$/Bot/bot.py" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Bot/bot.py" afterPath="$PROJECT_DIR$/Bot/bot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Bot/tests.py" afterPath="$PROJECT_DIR$/Bot/tests.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
     </list>
     <ignored path="PartyBot.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,6 +49,13 @@
         <option name="myItemId" />
         <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
       </PATH_ELEMENT>
+<<<<<<< HEAD
+=======
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Django default" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
     </PATH>
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
@@ -57,7 +71,11 @@
         <entry file="file://$PROJECT_DIR$/Bot/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3078">
+<<<<<<< HEAD
               <caret line="175" column="20" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="20" />
+=======
+              <caret line="175" column="20" lean-forward="false" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="20" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -68,6 +86,7 @@
       <file leaf-file-name="bot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bot/bot.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="396">
               <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding>
@@ -78,16 +97,66 @@
                 <element signature="e#1538#1967#0" expanded="false" />
                 <element signature="e#8336#8473#0" expanded="false" />
                 <element signature="e#9002#9059#0" expanded="false" />
+=======
+            <state relative-caret-position="-61">
+              <caret line="351" column="0" lean-forward="false" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
+              <folding>
+                <element signature="e#59#154#0" expanded="true" />
+                <element signature="e#468#497#0" expanded="false" />
+                <element signature="e#529#1029#0" expanded="false" />
+                <element signature="e#1068#1295#0" expanded="false" />
+                <element signature="e#1447#1852#0" expanded="false" />
+                <element signature="e#2300#2740#0" expanded="false" />
+                <element signature="e#2782#3143#0" expanded="false" />
+                <element signature="e#3193#4938#0" expanded="false" />
+                <element signature="e#4980#6919#0" expanded="false" />
+                <element signature="e#6962#8253#0" expanded="false" />
+                <element signature="e#8297#8434#0" expanded="false" />
+                <element signature="e#8963#9020#0" expanded="false" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="36">
               <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+=======
+      <file leaf-file-name="messagehandler.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.5/dist-packages/telegram/ext/messagehandler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2124">
+              <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dispatcher.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.5/dist-packages/telegram/ext/dispatcher.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3456">
+              <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tests.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Bot/tests.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+              <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+              <caret line="5" column="1" lean-forward="false" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+              <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+              <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+              <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
               <folding />
             </state>
           </provider>
@@ -143,7 +212,6 @@
         <option value="$PROJECT_DIR$/Bot/static/js/week.js" />
         <option value="$PROJECT_DIR$/templates/event_form.html" />
         <option value="$PROJECT_DIR$/templates/action_list.html" />
-        <option value="$PROJECT_DIR$/Bot/tests.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/signup.html" />
         <option value="$PROJECT_DIR$/templates/login.html" />
@@ -159,6 +227,7 @@
         <option value="$PROJECT_DIR$/templates/add_promotion.html" />
         <option value="$PROJECT_DIR$/Bot/views.py" />
         <option value="$PROJECT_DIR$/Bot/models.py" />
+        <option value="$PROJECT_DIR$/Bot/tests.py" />
         <option value="$PROJECT_DIR$/Bot/bot.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
       </list>
@@ -171,6 +240,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
+<<<<<<< HEAD
     <option name="x" value="55" />
     <option name="y" value="24" />
     <option name="width" value="1311" />
@@ -185,6 +255,12 @@
     <OptionsSetting value="true" id="Edit" />
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
+=======
+    <option name="x" value="3600" />
+    <option name="y" value="24" />
+    <option name="width" value="1920" />
+    <option name="height" value="1056" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -201,8 +277,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="Scratches" />
       <pane id="Scope" />
+=======
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -265,6 +344,11 @@
           </PATH>
         </subPane>
       </pane>
+<<<<<<< HEAD
+=======
+      <pane id="Scope" />
+      <pane id="Scratches" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -622,6 +706,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="55" y="24" width="1311" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
@@ -636,6 +721,22 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.249226" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993808" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+=======
+    <frame x="3600" y="24" width="1920" height="1056" extended-state="7" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17864583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972136" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912722" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19322917" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972136" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27930683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.249226" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957938" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -681,6 +782,16 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+<<<<<<< HEAD
+=======
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Bot/bot.py</url>
+          <line>262</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+      </breakpoints>
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -688,7 +799,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="43" />
+      <option name="time" value="46" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -776,6 +887,7 @@
     <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/Bot_vote" />
     <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/Bot_event" />
     <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/Bot_botmessage" />
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Bot/tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -783,6 +895,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
     <entry file="file://$PROJECT_DIR$/PartyBot/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -808,7 +922,11 @@
     <entry file="file://$PROJECT_DIR$/templates/signup.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
+<<<<<<< HEAD
           <caret line="7" column="57" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="57" />
+=======
+          <caret line="7" column="57" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="57" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
         </state>
       </provider>
     </entry>
@@ -852,7 +970,11 @@
     <entry file="file://$PROJECT_DIR$/PartyBot/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="385">
+<<<<<<< HEAD
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+=======
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
         </state>
       </provider>
     </entry>
@@ -871,6 +993,7 @@
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/76938161/6754b55b-4794-490d-b43b-c1e7857ca649/Bot_telegramuser" />
+<<<<<<< HEAD
     <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/Bot_advertisement" />
     <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/auth_user_user_permissions" />
     <entry file="file://$PROJECT_DIR$/templates/list_promotions.html" />
@@ -886,20 +1009,77 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="269" column="0" selection-start-line="269" selection-start-column="0" selection-end-line="269" selection-end-column="0" />
+=======
+    <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/Bot_advertisement">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
+    <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/auth_user_user_permissions">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/list_promotions.html" />
+    <entry file="file://$PROJECT_DIR$/templates/add_promotion.html" />
     <entry file="file:///usr/local/lib/python3.5/dist-packages/telegram/ext/callbackqueryhandler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
+<<<<<<< HEAD
           <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+=======
+          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Bot/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="801">
+<<<<<<< HEAD
           <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+=======
+          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/Bot_action">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/31ae7c98/6754b55b-4794-490d-b43b-c1e7857ca649/Bot_telegramuser">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
         </state>
       </provider>
     </entry>
@@ -908,15 +1088,49 @@
     <entry file="file://$PROJECT_DIR$/Bot/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3078">
+<<<<<<< HEAD
           <caret line="175" column="20" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="20" />
+=======
+          <caret line="175" column="20" lean-forward="false" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="20" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Bot/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+          <caret line="5" column="1" lean-forward="false" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/telegram/ext/messagehandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2124">
+          <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/telegram/ext/dispatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3456">
+          <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Bot/bot.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="396">
           <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
           <folding>
@@ -927,6 +1141,23 @@
             <element signature="e#1538#1967#0" expanded="false" />
             <element signature="e#8336#8473#0" expanded="false" />
             <element signature="e#9002#9059#0" expanded="false" />
+=======
+        <state relative-caret-position="-61">
+          <caret line="351" column="0" lean-forward="false" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
+          <folding>
+            <element signature="e#59#154#0" expanded="true" />
+            <element signature="e#468#497#0" expanded="false" />
+            <element signature="e#529#1029#0" expanded="false" />
+            <element signature="e#1068#1295#0" expanded="false" />
+            <element signature="e#1447#1852#0" expanded="false" />
+            <element signature="e#2300#2740#0" expanded="false" />
+            <element signature="e#2782#3143#0" expanded="false" />
+            <element signature="e#3193#4938#0" expanded="false" />
+            <element signature="e#4980#6919#0" expanded="false" />
+            <element signature="e#6962#8253#0" expanded="false" />
+            <element signature="e#8297#8434#0" expanded="false" />
+            <element signature="e#8963#9020#0" expanded="false" />
+>>>>>>> 2ff06c89458a1ceb61701cea0c8bd06274e4035f
           </folding>
         </state>
       </provider>
