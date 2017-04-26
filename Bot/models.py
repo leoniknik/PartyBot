@@ -3,6 +3,7 @@ from datetime import date
 from django.utils import timezone
 from enum import Enum
 from django.db.models import Max
+from telegram import ParseMode
 
 
 class Day(models.Model):
@@ -122,7 +123,7 @@ class Event(models.Model):
     @staticmethod
     def get_all_events_by_day(num):
         day = Day.get_actual_day(num)
-        events = Event.objects.filter(day=day)
+        events = Event.objects.filter(day=day).order_by('id')
         return events
 
     @staticmethod
@@ -164,17 +165,34 @@ class BotMessage(models.Model):
     text = models.TextField(verbose_name='text', default="")
     event = models.ForeignKey(Event, null=True)
 
+
     @staticmethod
-    def delete_old_messages(bot, update, events):
+    def make_message(event):
+        message = ''
+        message += '*' + event.header + '*' + '\n'
+        message += event.description + '\n'
+        rating = event.rating
+        message += '' + 'Рейтинг: ' + str(rating) + ''
+        return message
+
+
+    @staticmethod
+    def delete_old_messages(bot, update, events,message):
         for event in events:
-            old_messages = BotMessage.objects.filter(event_id=event.id, chat_id=update.message.chat_id)
+            old_messages = BotMessage.objects.filter(event_id=event.id, chat_id=message.chat_id)
             for old_message in old_messages:
-                if old_message.text != 'old info':
+                if True:#old_message.text != 'old info':
                     try:
-                        old_message.text = 'old info'
-                        old_message.save()
-                        bot.editMessageText(text='old info', chat_id=old_message.chat_id,
-                                            message_id=old_message.message_id)
+                        text=old_message.text
+                        try:
+                            text=BotMessage.make_message(event=event)
+                        except Exception:
+                            pass
+
+
+
+                        bot.editMessageText(text=text, chat_id=old_message.chat_id,
+                                            message_id=old_message.message_id, parse_mode=ParseMode.MARKDOWN)
                     except Exception as ex:
                         print(ex)
 
@@ -188,6 +206,10 @@ class BotMessage(models.Model):
         bot_msg.message_id = log.message_id
         bot_msg.event = event
         bot_msg.save()
+
+        event_hist=EventHistory.objects.get_or_create(id=event.id)[0]
+        event_hist.text=BotMessage.make_message(event)
+        event_hist.save()
 
 
 class WeekDay(Enum):
@@ -211,3 +233,6 @@ class Advertisement(models.Model):
             advertisement.save()
         except Exception as ex:
             print(ex)
+class EventHistory(models.Model):
+    id = models.BigIntegerField(verbose_name='id', primary_key=True)
+    text=models.CharField(verbose_name='text',max_length=999,default='')
