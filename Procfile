@@ -1,1 +1,1 @@
-web: gunicorn --env DJANGO_SETTINGS_MODULE=PartyBot.settings PartyBot.wsgi
+web: python3 manage.py runserver 127.0.0.1:8000
