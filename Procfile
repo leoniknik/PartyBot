@@ -1,1 +1,1 @@
-web: manage.py migrate && gunicorn -e DJANGO_SETTINGS_MODULE=PartyBot.settings PartyBot.wsgi --log-file -
+web: manage.py migrate; gunicorn -e DJANGO_SETTINGS_MODULE=PartyBot.settings PartyBot.wsgi --log-file -
