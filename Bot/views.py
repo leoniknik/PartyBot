@@ -66,10 +66,6 @@ def edit_event(request, id, num):
 
 @login_required
 def delete_event(request, id, num):
-    if request.method == 'GET':
-        event = get_object_or_404(Event, id=id)
-        return render(request, 'edit_event.html', {'event': event})
-    elif request.method == 'POST':
         Event.objects.filter(id=id).delete()
         return redirect('day', num=num)
 

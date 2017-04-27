@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 
 
-import os
 import django
 
 import os
