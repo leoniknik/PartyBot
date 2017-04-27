@@ -8,7 +8,7 @@ import time
 
 debug = False
 
-
+'''
 def debug_print(item):
     if debug:
         print(item)
@@ -375,3 +375,4 @@ dispatcher.add_handler(echo_handler)
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
 work_cycle()
+'''
