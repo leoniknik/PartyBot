@@ -34,7 +34,7 @@ def day(request, num):
 @login_required
 def add_event(request, num):
     if request.method == 'GET':
-        return render(request, 'advertisement.html')
+        return render(request, 'add_event.html')
     elif request.method == 'POST':
         header = request.POST['header']
         description = request.POST['description']
