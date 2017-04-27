@@ -369,11 +369,11 @@ echo_handler = MessageHandler(Filters.text, echo)
 updater = Updater(token='361018005:AAHY53Qj5EKEQHwf-g7LwoMf0UbiMzvCgAE')
 
 dispatcher = updater.dispatcher
-dispatcher.add_handler(command_handler)
+#dispatcher.add_handler(command_handler)
 #dispatcher.add_error_handler(error)
 #dispatcher.add_handler(echo_handler)
 
-updater.dispatcher.add_handler(CallbackQueryHandler(button))
+#updater.dispatcher.add_handler(CallbackQueryHandler(button))
 updater.start_polling()
 #work_cycle()
 
