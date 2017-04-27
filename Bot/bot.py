@@ -324,6 +324,7 @@ def error(bot, update, error):
 
 
 def command(bot, update):
+    print("heroku")
     try:
         Action.add_action(update.message)
         command_text = update.message.text
@@ -355,12 +356,12 @@ def command(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
 
-def work_cycle():
-    try:
-        updater.start_polling()
-    except Exception as ex:
-        print('bot crashed:')
-        work_cycle()
+# def work_cycle():
+#     try:
+#         updater.start_polling()
+#     except Exception as ex:
+#         print('bot crashed:')
+#         work_cycle()
 
 
 command_handler = MessageHandler(Filters.command, command)
@@ -373,6 +374,6 @@ dispatcher.add_error_handler(error)
 dispatcher.add_handler(echo_handler)
 
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
-
-work_cycle()
+updater.start_polling()
+#work_cycle()
 
