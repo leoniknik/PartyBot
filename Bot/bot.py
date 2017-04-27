@@ -128,7 +128,7 @@ def send_message_by_week_day(bot, update):
             bot.sendMessage(chat_id=update.message.chat_id, text=message)
         else:
 
-            #BotMessage.delete_old_messages(bot=bot, update=update, events=events,message=update.message)
+            # BotMessage.delete_old_messages(bot=bot, update=update, events=events,message=update.message)
             for i in range(0, event_col):
                 event = events[i]
 
@@ -172,7 +172,7 @@ def send_message_top(bot, update):
             bot.sendMessage(chat_id=update.message.chat_id, text=message)
         else:
 
-            #BotMessage.delete_old_messages(bot=bot, update=update, events=events_only,message=update.message)
+            # BotMessage.delete_old_messages(bot=bot, update=update, events=events_only,message=update.message)
             for i in range(0, event_col):
                 event = events[i][1]
                 week_day_id = events[i][0]
@@ -213,7 +213,7 @@ def send_advetrisments(bot, update):
             bot.sendMessage(chat_id=update.message.chat_id, text=message, disable_notification=True)
         else:
 
-            #bot.sendMessage(chat_id=update.message.chat_id, text='*Акции*\n\n', parse_mode=ParseMode.MARKDOWN)
+            # bot.sendMessage(chat_id=update.message.chat_id, text='*Акции*\n\n', parse_mode=ParseMode.MARKDOWN)
             for i in range(0, advertisment_col):
                 # bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text, parse_mode=ParseMode.MARKDOWN)
                 if i != (advertisment_col - 1):
@@ -283,8 +283,6 @@ def button(bot, update):
         else:
             event = Event.get_event(query_data_tuple[0])
 
-
-
             if query_data_tuple[1] == 1:
                 type = True
             else:
@@ -301,7 +299,7 @@ def button(bot, update):
             bot.editMessageText(text=message, chat_id=query.message.chat_id, message_id=query.message.message_id,
                                 parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
 
-            BotMessage.delete_old_messages(bot=bot,events=event,message=update.callback_query.message)
+            BotMessage.delete_old_messages(bot=bot, events=event, message=update.callback_query.message)
 
 
     except Exception as ex:
@@ -356,15 +354,6 @@ def command(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
 
-def work_cycle():
-     try:
-         updater.start_polling()
-         time.sleep(10)
-     except Exception as ex:
-         print('bot crashed:')
-         work_cycle()
-
-
 command_handler = MessageHandler(Filters.command, command)
 echo_handler = MessageHandler(Filters.text, echo)
 updater = Updater(token='361018005:AAHY53Qj5EKEQHwf-g7LwoMf0UbiMzvCgAE')
@@ -376,11 +365,17 @@ dispatcher.add_handler(echo_handler)
 
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
-while True:
-    print('new poling')
-    try:
-        updater.start_polling()
-        time.sleep(10)
-    except Exception as ex:
-        print('bot crashed:')
 
+def work_cycle():
+    while True:
+        try:
+            updater.start_polling()
+            time.sleep(10)
+        except Exception as ex:
+            print('bot crashed:')
+
+
+from multiprocessing import Process
+
+t1 = Process(target=work_cycle)
+t1.start()
