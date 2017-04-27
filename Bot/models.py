@@ -177,20 +177,16 @@ class BotMessage(models.Model):
 
 
     @staticmethod
-    def delete_old_messages(bot, update, events,message):
-        for event in events:
+    def delete_old_messages(bot, event,message):
             old_messages = BotMessage.objects.filter(event_id=event.id, chat_id=message.chat_id)
             for old_message in old_messages:
-                if True:#old_message.text != 'old info':
+                if True:
                     try:
-                        text=old_message.text
+                        text=''
                         try:
                             text=BotMessage.make_message(event=event)
                         except Exception:
                             pass
-
-
-
                         bot.editMessageText(text=text, chat_id=old_message.chat_id,
                                             message_id=old_message.message_id, parse_mode=ParseMode.MARKDOWN)
                     except Exception as ex:
@@ -206,10 +202,6 @@ class BotMessage(models.Model):
         bot_msg.message_id = log.message_id
         bot_msg.event = event
         bot_msg.save()
-
-        event_hist=EventHistory.objects.get_or_create(id=event.id)[0]
-        event_hist.text=BotMessage.make_message(event)
-        event_hist.save()
 
 
 class WeekDay(Enum):
@@ -233,6 +225,3 @@ class Advertisement(models.Model):
             advertisement.save()
         except Exception as ex:
             print(ex)
-class EventHistory(models.Model):
-    id = models.BigIntegerField(verbose_name='id', primary_key=True)
-    text=models.CharField(verbose_name='text',max_length=999,default='')
