@@ -19,3 +19,5 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "PartyBot.settings")
 
 application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
+
+import Bot.bot # bot's initialization
