@@ -207,10 +207,6 @@ class BotMessage(models.Model):
         bot_msg.event = event
         bot_msg.save()
 
-        event_hist=EventHistory.objects.get_or_create(id=event.id)[0]
-        event_hist.text=BotMessage.make_message(event)
-        event_hist.save()
-
 
 class WeekDay(Enum):
     Monday = 0
@@ -233,6 +229,3 @@ class Advertisement(models.Model):
             advertisement.save()
         except Exception as ex:
             print(ex)
-class EventHistory(models.Model):
-    id = models.BigIntegerField(verbose_name='id', primary_key=True)
-    text=models.CharField(verbose_name='text',max_length=999,default='')

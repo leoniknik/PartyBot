@@ -63,7 +63,6 @@ def send_message_to_all(bot, update, text):
 command_dict = {
     "/start": start_command,
     "/help": help_command
-    # "/all":send_message_to_all
 }
 
 week_day_dict = {
@@ -374,6 +373,6 @@ dispatcher.add_error_handler(error)
 dispatcher.add_handler(echo_handler)
 
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
-'''
+
 work_cycle()
-'''
+
