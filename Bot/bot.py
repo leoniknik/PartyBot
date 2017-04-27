@@ -374,6 +374,6 @@ dispatcher.add_handler(command_handler)
 #dispatcher.add_handler(echo_handler)
 
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
-# updater.start_polling()
+updater.start_polling()
 #work_cycle()
 
