@@ -359,6 +359,7 @@ def command(bot, update):
 def work_cycle():
      try:
          updater.start_polling()
+         time.sleep(10)
      except Exception as ex:
          print('bot crashed:')
          work_cycle()
@@ -374,6 +375,12 @@ dispatcher.add_error_handler(error)
 dispatcher.add_handler(echo_handler)
 
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
-updater.start_polling()
-work_cycle()
+
+while True:
+    print('new poling')
+    try:
+        updater.start_polling()
+        time.sleep(10)
+    except Exception as ex:
+        print('bot crashed:')
 
