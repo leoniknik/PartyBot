@@ -375,22 +375,3 @@ dispatcher.add_handler(echo_handler)
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
 work_cycle()
-
-
-
-
-
-# nit = threading.Thread(target=work_cycle)
-# nit.start()
-# while(True):
-#    print('start check')
-#    if nit is not None:
-#        if  not nit.is_alive():
-#            nit = threading.Thread(target=work_cycle)
-#            nit.start()
-#        else:
-#            print('bot is alive')
-#            time.sleep(5)
-#    else:
-#        nit = threading.Thread(target=work_cycle)
-#        nit.start()
