@@ -301,7 +301,7 @@ def button(bot, update):
             bot.editMessageText(text=message, chat_id=query.message.chat_id, message_id=query.message.message_id,
                                 parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
 
-            #BotMessage.delete_old_messages(bot=bot,events=event,message=update.callback_query.message)
+            BotMessage.delete_old_messages(bot=bot,events=event,message=update.callback_query.message)
 
 
     except Exception as ex:
@@ -370,10 +370,10 @@ updater = Updater(token='361018005:AAHY53Qj5EKEQHwf-g7LwoMf0UbiMzvCgAE')
 
 dispatcher = updater.dispatcher
 dispatcher.add_handler(command_handler)
-#dispatcher.add_error_handler(error)
-#dispatcher.add_handler(echo_handler)
+dispatcher.add_error_handler(error)
+dispatcher.add_handler(echo_handler)
 
-#updater.dispatcher.add_handler(CallbackQueryHandler(button))
+updater.dispatcher.add_handler(CallbackQueryHandler(button))
 updater.start_polling()
 #work_cycle()
 
