@@ -355,7 +355,7 @@ def command(bot, update):
         print(ex)
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
-'''
+
 def work_cycle():
     try:
         updater.start_polling()
@@ -367,12 +367,13 @@ def work_cycle():
 command_handler = MessageHandler(Filters.command, command)
 echo_handler = MessageHandler(Filters.text, echo)
 updater = Updater(token='361018005:AAHY53Qj5EKEQHwf-g7LwoMf0UbiMzvCgAE')
+
 dispatcher = updater.dispatcher
 dispatcher.add_handler(command_handler)
 dispatcher.add_error_handler(error)
 dispatcher.add_handler(echo_handler)
 
 updater.dispatcher.add_handler(CallbackQueryHandler(button))
-
+'''
 work_cycle()
 '''
