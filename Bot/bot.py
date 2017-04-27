@@ -301,7 +301,7 @@ def button(bot, update):
             bot.editMessageText(text=message, chat_id=query.message.chat_id, message_id=query.message.message_id,
                                 parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
 
-            BotMessage.delete_old_messages(bot=bot,update=update,events=[event],message=update.callback_query.message)
+            #BotMessage.delete_old_messages(bot=bot,events=event,message=update.callback_query.message)
 
 
     except Exception as ex:

@@ -177,20 +177,16 @@ class BotMessage(models.Model):
 
 
     @staticmethod
-    def delete_old_messages(bot, update, events,message):
-        for event in events:
+    def delete_old_messages(bot, event,message):
             old_messages = BotMessage.objects.filter(event_id=event.id, chat_id=message.chat_id)
             for old_message in old_messages:
-                if True:#old_message.text != 'old info':
+                if True:
                     try:
-                        text=old_message.text
+                        text=''
                         try:
                             text=BotMessage.make_message(event=event)
                         except Exception:
                             pass
-
-
-
                         bot.editMessageText(text=text, chat_id=old_message.chat_id,
                                             message_id=old_message.message_id, parse_mode=ParseMode.MARKDOWN)
                     except Exception as ex:
