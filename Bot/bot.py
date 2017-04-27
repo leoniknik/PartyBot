@@ -8,7 +8,7 @@ import time
 
 debug = False
 
-'''
+
 def debug_print(item):
     if debug:
         print(item)
@@ -355,7 +355,7 @@ def command(bot, update):
         print(ex)
         bot.sendMessage(chat_id=update.message.chat_id, text="System error")
 
-
+'''
 def work_cycle():
     try:
         updater.start_polling()
