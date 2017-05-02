@@ -63,7 +63,7 @@ def edit_event(request, id, num):
             is_free = False
         Event.objects.filter(id=id).update(header=header, description=description, is_free=is_free)
         actives = Day.get_day_and_events(num, False)
-        return render(request, 'day.html', {'actives': actives, 'num': num, 'flag': False})
+        return render(request, 'day.html', {'actives': actives, 'num': num, 'flag': True})
 
 
 @login_required
