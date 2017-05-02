@@ -44,7 +44,7 @@ def add_event(request, num):
         elif is_free == "false":
             is_free = False
         Event.add_event(header=header, description=description, is_free=is_free, num=num)
-        return redirect('day', num=num)
+        return redirect('add_event', num=num)
 
 
 @login_required
@@ -109,7 +109,7 @@ def add_advertisement(request):
     elif request.method == 'POST':
         text = request.POST['text']
         Advertisement.add_advertisement(text)
-    return redirect('list_advertisement')
+    return redirect('add_advertisement')
 
 
 @login_required
