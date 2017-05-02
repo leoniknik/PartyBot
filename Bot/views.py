@@ -26,9 +26,9 @@ def week(request):
 
 
 @login_required
-def day(request, num):
+def day(request, num, flag=True):
     actives = Day.get_day_and_events(num, False)
-    return render(request, 'day.html', {'actives': actives, 'num': num})
+    return render(request, 'day.html', {'actives': actives, 'num': num, 'flag': flag})
 
 
 @login_required
@@ -44,14 +44,15 @@ def add_event(request, num):
         elif is_free == "false":
             is_free = False
         Event.add_event(header=header, description=description, is_free=is_free, num=num)
-        return redirect('day', num=num)
+        return redirect('day', num=num, flag=True)
 
 
 @login_required
 def edit_event(request, id, num):
     if request.method == 'GET':
         event = get_object_or_404(Event, id=id)
-        return render(request, 'edit_event.html', {'event': event})
+        actives = Day.get_day_and_events(num, False)
+        return render(request, 'day.html', {'actives': actives, 'num': num, 'flag': False, 'event': event})
     elif request.method == 'POST':
         header = request.POST['header']
         description = request.POST['description']
@@ -61,7 +62,8 @@ def edit_event(request, id, num):
         elif is_free == "false":
             is_free = False
         Event.objects.filter(id=id).update(header=header, description=description, is_free=is_free)
-        return redirect('day', num=num)
+        actives = Day.get_day_and_events(num, False)
+        return render(request, 'day.html', {'actives': actives, 'num': num, 'flag': False})
 
 
 @login_required

@@ -1,4 +1,5 @@
 {% extends 'week.html' %}
+
 {% block day %}
     <div class="container table-responsive">
         <table class="table table-hover">
@@ -25,11 +26,13 @@
                         </td>
                         <td>{{ active.rating }}</td>
                         <td>
-                           <a href="{% url 'edit_event' id=active.id num=num %}" class="btn btn-default btn-lg btn-warning">
+                            <a href="{% url 'edit_event' id=active.id num=num %}"
+                               class="btn btn-default btn-lg btn-warning">
                                 <span class="glyphicon glyphicon-pencil"></span></a>
                         </td>
                         <td>
-                            <a href="{% url 'delete_event' id=active.id num=num %}" class="btn btn-default btn-lg btn-danger">
+                            <a href="{% url 'delete_event' id=active.id num=num %}"
+                               class="btn btn-default btn-lg btn-danger">
                                 <span class="glyphicon glyphicon-remove"></span></a>
                         </td>
                     </tr>
@@ -38,31 +41,65 @@
             </tbody>
         </table>
     </div>
-    <div class="text-center">
-        <form action="/add_event/{{ num }}" method="post" id="add_form">{% csrf_token %}
-            <div>
-                <label for="header">Заголовок: </label>
-            </div>
-            <div>
-                <input id="header" type="text" name="header">
-            </div>
-            <div>
-                <label for="description">Описание: </label>
-            </div>
-            <div>
+    {% if flag %}
+        <div class="text-center">
+            <form action="/add_event/{{ num }}" method="post" id="add_form">{% csrf_token %}
+                <div>
+                    <label for="header">Заголовок: </label>
+                </div>
+                <div>
+                    <input id="header" type="text" name="header">
+                </div>
+                <div>
+                    <label for="description">Описание: </label>
+                </div>
+                <div>
             <textarea id="description" rows="15" cols="70" name="description"
                       form="add_form"></textarea>
-            </div>
-            <div>
-                <label>Бесплатно: </label>
+                </div>
+                <div>
+                    <label>Бесплатно: </label>
                     <p><input name="is_free" type="radio" value="true" checked>Да</p>
                     <p><input name="is_free" type="radio" value="false">Нет</p>
-            </div>
-            <div>
-                <input type="submit" value="Подтвердить" class="btn btn-success">
-            </div>
-        </form>
-    </div>
+                </div>
+                <div>
+                    <input type="submit" value="Добавить" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <form action="/edit_event/{{ event.id }}/{{ num }}" method="post" id="edit_form">{% csrf_token %}
+                <div>
+                    <label for="header">Заголовок: </label>
+                </div>
+                <div>
+                    <input id="header" type="text" name="header" value={{ event.header }}>
+                </div>
+                <div>
+                    <label for="description">Описание: </label>
+                </div>
+                <div>
+            <textarea id="description" rows="20" cols="70" name="description"
+                      form="edit_form">{{ event.description }}</textarea>
+                </div>
+                <div>
+                    <label>Бесплатно: </label>
+                    {% if event.is_free %}
+                        <p><input name="is_free" type="radio" value="true" checked>Да</p>
+                        <p><input name="is_free" type="radio" value="false">Нет</p>
+                    {% else %}
+                        <p><input name="is_free" type="radio" value="true">Да</p>
+                        <p><input name="is_free" type="radio" value="false" checked>Нет</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <input type="submit" value="Изменить" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    {% endif %}
     {% comment %}<div class="text-center"><a href="{% url 'add_event' num=num %}" class="btn btn-success">Добавить</a></div>{% endcomment %}
-    <div class="text-right"><a href="{% url 'delete_all_event' num=num %}" class="btn btn-danger">Удалить все в этот день</a></div>
+    <div class="text-right"><a href="{% url 'delete_all_event' num=num %}" class="btn btn-danger">Удалить все в этот
+        день</a></div>
 {% endblock %}

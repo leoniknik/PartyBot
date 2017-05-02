@@ -1,10 +1,6 @@
-{% extends 'base.html' %}
-{% block content %}
-    <div class="text-right"><a href="{% url 'week' %}"
-                           class="btn btn-default btn-lg btn-success">
-                        <span class="glyphicon glyphicon-home"></span></a></div>
+{% extends "day.html" %}
     <div class="text-center">
-        <form action="" method="post" id="add_form">{% csrf_token %}
+        <form action="/add_event/{{ num }}" method="post" id="add_form">{% csrf_token %}
             <div>
                 <label for="header">Заголовок: </label>
             </div>
@@ -20,13 +16,11 @@
             </div>
             <div>
                 <label>Бесплатно: </label>
-                    <p><input name="is_free" type="radio" value="true" checked>Да</p>
-                    <p><input name="is_free" type="radio" value="false">Нет</p>
-
+                <p><input name="is_free" type="radio" value="true" checked>Да</p>
+                <p><input name="is_free" type="radio" value="false">Нет</p>
             </div>
             <div>
-                <input type="submit" value="Подтвердить" class="btn btn-success">
+                <input type="submit" value="Добавить" class="btn btn-success">
             </div>
         </form>
     </div>
-{% endblock %}
