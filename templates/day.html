@@ -38,6 +38,31 @@
             </tbody>
         </table>
     </div>
-    <div class="text-center"><a href="{% url 'add_event' num=num %}" class="btn btn-success">Добавить</a></div>
+    <div class="text-center">
+        <form action="/add_event/{{ num }}" method="post" id="add_form">{% csrf_token %}
+            <div>
+                <label for="header">Заголовок: </label>
+            </div>
+            <div>
+                <input id="header" type="text" name="header">
+            </div>
+            <div>
+                <label for="description">Описание: </label>
+            </div>
+            <div>
+            <textarea id="description" rows="15" cols="70" name="description"
+                      form="add_form"></textarea>
+            </div>
+            <div>
+                <label>Бесплатно: </label>
+                    <p><input name="is_free" type="radio" value="true" checked>Да</p>
+                    <p><input name="is_free" type="radio" value="false">Нет</p>
+            </div>
+            <div>
+                <input type="submit" value="Подтвердить" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+    {% comment %}<div class="text-center"><a href="{% url 'add_event' num=num %}" class="btn btn-success">Добавить</a></div>{% endcomment %}
     <div class="text-right"><a href="{% url 'delete_all_event' num=num %}" class="btn btn-danger">Удалить все в этот день</a></div>
 {% endblock %}

@@ -44,7 +44,7 @@ def add_event(request, num):
         elif is_free == "false":
             is_free = False
         Event.add_event(header=header, description=description, is_free=is_free, num=num)
-        return redirect('add_event', num=num)
+        return redirect('day', num=num)
 
 
 @login_required
