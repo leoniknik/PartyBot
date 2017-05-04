@@ -188,7 +188,7 @@ class BotMessage(models.Model):
                     except Exception:
                         pass
                     bot.editMessageText(text=text, chat_id=old_message.chat_id,
-                                        message_id=old_message.message_id, parse_mode=ParseMode.MARKDOWN)
+                                        message_id=old_message.message_id, parse_mode=ParseMode.MARKDOWN, disable_web_page_prewview=True)
                 except Exception as ex:
                     print(ex)
 
