@@ -69,8 +69,8 @@ def edit_event(request, id, num):
 
 @login_required
 def delete_event(request, id, num):
-        Event.objects.filter(id=id).delete()
-        return redirect('day', num=num)
+    Event.objects.filter(id=id).update(deleted=True)
+    return redirect('day', num=num)
 
 
 @login_required
@@ -95,7 +95,9 @@ def change_vip(request, user_telegram_id):
 @login_required
 def delete_all_event(request, num):
     events = Event.get_all_events_by_day(num)
-    events.delete()
+    for event in events:
+        event.deleted = True
+        event.save()
     return redirect('day', num=num)
 
 
@@ -119,7 +121,7 @@ def add_advertisement(request):
 def edit_advertisement(request, id):
     if request.method == 'GET':
         advertisement = get_object_or_404(Advertisement, id=id)
-        return render(request, 'advertisement.html', {'advertisement':advertisement})
+        return render(request, 'advertisement.html', {'advertisement': advertisement})
     elif request.method == 'POST':
         text = request.POST['text']
         advertisement = Advertisement.objects.get(id=id)
@@ -133,6 +135,3 @@ def delete_advertisement(request, id):
     advertisement = get_object_or_404(Advertisement, id=id)
     advertisement.delete()
     return redirect('list_advertisement')
-
-
-

@@ -19,9 +19,9 @@ class Day(models.Model):
 
     def get_events(self, free_mode):
         if free_mode:
-            return Event.objects.filter(day_id=self.id, is_free=True)
+            return Event.objects.filter(day_id=self.id, is_free=True, deleted=False)
         else:
-            return Event.objects.filter(day_id=self.id)
+            return Event.objects.filter(day_id=self.id, deleted=False)
 
     @staticmethod
     def get_day_and_top_events(week_day, free_mode):
@@ -106,6 +106,7 @@ class Event(models.Model):
     is_free = models.BooleanField(verbose_name='is_free', default=True)
     rating = models.IntegerField(verbose_name='rating', default=0)
     day = models.ForeignKey(Day, null=True)
+    deleted = models.BooleanField(verbose_name='deleted', default=False)
 
     @staticmethod
     def add_event(header, description, is_free, num):
@@ -116,6 +117,7 @@ class Event(models.Model):
             event.is_free = is_free
             event.rating = 0
             event.day = Day.get_actual_day(num)
+            event.deleted = False
             event.save()
         except Exception as e:
             print(e)
@@ -123,7 +125,7 @@ class Event(models.Model):
     @staticmethod
     def get_all_events_by_day(num):
         day = Day.get_actual_day(num)
-        events = Event.objects.filter(day=day).order_by('id')
+        events = Event.objects.filter(day=day, deleted=False).order_by('id')
         return events
 
     @staticmethod
@@ -165,7 +167,6 @@ class BotMessage(models.Model):
     text = models.TextField(verbose_name='text', default="")
     event = models.ForeignKey(Event, null=True)
 
-
     @staticmethod
     def make_message(event):
         message = ''
@@ -175,27 +176,26 @@ class BotMessage(models.Model):
         message += '' + 'Рейтинг: ' + str(rating) + ''
         return message
 
-
     @staticmethod
-    def delete_old_messages(bot, event,message):
-            old_messages = BotMessage.objects.filter(event_id=event.id, chat_id=message.chat_id)
-            for old_message in old_messages:
-                if True:
+    def delete_old_messages(bot, event, message):
+        old_messages = BotMessage.objects.filter(event_id=event.id, chat_id=message.chat_id)
+        for old_message in old_messages:
+            if True:
+                try:
+                    text = ''
                     try:
-                        text=''
-                        try:
-                            text=BotMessage.make_message(event=event)
-                        except Exception:
-                            pass
-                        bot.editMessageText(text=text, chat_id=old_message.chat_id,
-                                            message_id=old_message.message_id, parse_mode=ParseMode.MARKDOWN)
-                    except Exception as ex:
-                        print(ex)
+                        text = BotMessage.make_message(event=event)
+                    except Exception:
+                        pass
+                    bot.editMessageText(text=text, chat_id=old_message.chat_id,
+                                        message_id=old_message.message_id, parse_mode=ParseMode.MARKDOWN)
+                except Exception as ex:
+                    print(ex)
 
     @staticmethod
-    def send_message(bot, update, message, parse_mode, reply_markup, event,silent):
+    def send_message(bot, update, message, parse_mode, reply_markup, event, silent):
         log = bot.sendMessage(chat_id=update.message.chat_id, text=message, parse_mode=parse_mode,
-                              reply_markup=reply_markup,disable_notification=silent)
+                              reply_markup=reply_markup, disable_notification=silent,disable_web_page_prewview=True)
         bot_msg = BotMessage()
         bot_msg.text = message
         bot_msg.chat_id = update.message.chat_id

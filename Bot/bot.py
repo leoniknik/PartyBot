@@ -54,7 +54,7 @@ def send_message_to_all(bot, update, text):
     if sender.is_VIP:
         receivers = TelegramUser.get_all_users()
         for receiver in receivers:
-            bot.sendMessage(chat_id=receiver.user_telegram_id, text=text)
+            bot.sendMessage(chat_id=receiver.user_telegram_id, text=text,disable_web_page_prewview=True)
     else:
         bot.sendMessage(chat_id=message.chat_id,
                         text="Вы не можете использовать данную функцию, обратитесь к администратору")
@@ -125,7 +125,7 @@ def send_message_by_week_day(bot, update):
 
         if event_col == 0:
             message = 'На ' + week_day_dict[int(week_day.value)] + ' мероприятий не запланировано'
-            bot.sendMessage(chat_id=update.message.chat_id, text=message)
+            bot.sendMessage(chat_id=update.message.chat_id, text=message,disable_web_page_prewview=True)
         else:
 
             # BotMessage.delete_old_messages(bot=bot, update=update, events=events,message=update.message)
@@ -218,11 +218,11 @@ def send_advetrisments(bot, update):
                 # bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text, parse_mode=ParseMode.MARKDOWN)
                 if i != (advertisment_col - 1):
                     bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text,
-                                    parse_mode=ParseMode.MARKDOWN, disable_notification=True)
+                                    parse_mode=ParseMode.MARKDOWN, disable_notification=True,disable_web_page_prewview=True)
                     time.sleep(1)
                 else:
                     bot.sendMessage(chat_id=update.message.chat_id, text=advertisments[i].text,
-                                    parse_mode=ParseMode.MARKDOWN)
+                                    parse_mode=ParseMode.MARKDOWN,disable_web_page_prewview=True)
 
 
     except KeyError as k_e:
@@ -274,12 +274,12 @@ def button(bot, update):
 
                 bot.editMessageText(text='Рассылка выполнена', chat_id=update.callback_query.message.chat_id,
                                     message_id=update.callback_query.message.message_id,
-                                    parse_mode=ParseMode.MARKDOWN)
+                                    parse_mode=ParseMode.MARKDOWN,disable_web_page_prewview=True)
                 send_message_to_all(bot=bot, update=update, text=text)
             else:
                 bot.editMessageText(text='Рассылка отменена', chat_id=update.callback_query.message.chat_id,
                                     message_id=update.callback_query.message.message_id,
-                                    parse_mode=ParseMode.MARKDOWN)
+                                    parse_mode=ParseMode.MARKDOWN,disable_web_page_prewview=True)
         else:
             event = Event.get_event(query_data_tuple[0])
 
@@ -338,10 +338,10 @@ def command(bot, update):
                 reply_markup = InlineKeyboardMarkup(keyboard)
 
                 bot.sendMessage(text='Отправить всем следующее сообщение?\n' + text, chat_id=update.message.chat_id,
-                                parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
+                                parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup,disable_web_page_prewview=True)
             else:
                 bot.sendMessage(chat_id=update.message.chat_id,
-                                text="Вы не можете использовать данную функцию, обратитесь к администратору")
+                                text="Вы не можете использовать данную функцию, обратитесь к администратору",disable_web_page_prewview=True)
 
         else:
             func = command_dict[update.message.text]
